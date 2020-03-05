@@ -6,39 +6,27 @@
 
 .text
   .global _entry
-  xchg bx, bx
 
-# 將扇區内容加載到内存
+  # 將扇區内容加載到内存
   _entry:
   xchg bx, bx
 
-  # mov ax, 0x7c00
-  # mov ds, ax
+  # 重置顯示器
+  call _func_reset_screen
 
-# 設置顯示器 (80x25 16色文本)
-#  mov ah, 0x00
-#  mov al, 0x03
-#  int 0x10
-
-# 設置光標位置 (x=0, y=0)
-#  mov ah, 0x02
-#  mov dx, 0x00
-#  int 0x10
-
-# 試著打印字符串!
-print:
-  xchg bx, bx
-
+  # 打印字串
   lea ax, _msg_load
   call _func_print_str2
-  jmp print
 
+  # 自殺 233
+  hlt
 
+# 打印字符
+#   al = 字符
 _func_print_ch:
   mov ah, 0x0e
   int 0x10
 ret
-
 
 # 打印字串
 # 遍歷字串打印法
@@ -77,15 +65,18 @@ _func_print_str2:
   _flag_c:
 ret
 
+# 重置默認顯示器
+_func_reset_screen:
+  mov ax, 0x0003  # 設置顯示器 (80x25 16色文本)
+  int 0x10
+ret
 
 
 # 保存的字串
-_msg_load: .asciz "[ OK ] Loading elKernel...\r\n\0"
-
-
-# 填充空白區域對齊扇區
-.org 0x1FE
+.org 0x150
+_msg_load: .asciz "[ OK ] Loading elKernel...\r\n"
 
 # 可引導扇區標識符
-_flag:
-  .word 0xAA55
+# 填充空白區域對齊扇區
+.org 0x1FE
+.word 0xAA55
