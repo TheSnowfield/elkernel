@@ -4,3 +4,8 @@
 # Visual Studio files
 .vs/
 
+# Backup files
+*.bak
+
+# Executable files
+*.exe
