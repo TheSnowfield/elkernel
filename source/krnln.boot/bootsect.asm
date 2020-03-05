@@ -18,7 +18,31 @@
   lea ax, _msg_load
   call _func_print_str2
 
-  # 自殺 233
+  # 加載程序主體部分
+  lea ax, _msg_ldisk
+  call _func_print_str2
+    call _func_disk_read
+    cmp ax, 0x0000
+    jnz _flag_e
+  lea ax, _msg_ok
+  call _func_print_str2
+
+  # 加載全局描述符表
+  lea ax, _msg_lgdt
+  call _func_print_str2
+    call _func_load_gdt
+    cmp ax, 0x0000
+    jnz _flag_e
+  lea ax, _msg_ok
+  call _func_print_str2
+
+  # 可以進入保護模式啦 萬歲
+  # 可是還沒開始寫
+
+  _flag_e:
+  lea ax, _msg_failed
+  call _func_print_str2
+
   hlt
 
 # 打印字符
@@ -71,10 +95,45 @@ _func_reset_screen:
   int 0x10
 ret
 
+# 將程序加載到内存
+# 返回 ax 加載是否成功
+_func_disk_read:
+xchg bx, bx
+  mov ax, KRNLNBOOT # 中斷參數 緩衝區
+  mov es, ax
+  mov ah, 0x02      # 中斷函數
+  mov bx, 0x0000    # 中斷參數 緩衝區偏移
+  mov al, 0x01      # 中斷參數 讀取扇區數
+  mov ch, 0x00      # 中斷參數 柱面號
+  mov cl, 0x02      # 中斷參數 扇區號
+  mov dh, 0x00      # 中斷參數 磁頭號
+  mov dl, 0x00      # 中斷參數 驅動器號
+
+  int 0x13          # 調用中斷
+xchg bx, bx
+  cmp ah, 0x00      # 是否成功
+  jnz _flag_f
+  xor ax, ax        # 清空寄存器 返回成功
+  
+  _flag_f:
+ret
+
+# 加載全局描述符表
+_func_load_gdt:
+
+
+
+  mov ax, 0x0001
+ret
 
 # 保存的字串
 .org 0x150
-_msg_load: .asciz "[ OK ] Loading elKernel...\r\n"
+_msg_ok:     .asciz " OK!\r\n"
+_msg_failed: .asciz " FAILED!\r\n"
+_msg_load:   .asciz "== Hello World! ==\r\n"
+_msg_ldisk:  .asciz "Loading elKernel..."
+_msg_lgdt:   .asciz "Loading GDT...     "
+
 
 # 可引導扇區標識符
 # 填充空白區域對齊扇區
