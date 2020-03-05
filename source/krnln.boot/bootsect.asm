@@ -28,14 +28,9 @@
 # 試著打印字符串!
 print:
   xchg bx, bx
-#  mov ah, 0x0e
-#  mov dx, _msg_load
-#  mov al, dl
-#  int 0x10
-#  jmp print
 
   lea ax, _msg_load
-  call _func_print_str
+  call _func_print_str2
   jmp print
 
 
@@ -47,9 +42,9 @@ ret
 
 # 打印字串
 # 遍歷字串打印法
-#   ax = 字符串指針
+#   ax = 字串指針
 _func_print_str:
-  mov si, ax      # 參數 字符串所在指針
+  mov si, ax      # 參數 字串所在指針
   
   _flag_b:
     mov ax, [si]     # 取出數據
@@ -64,11 +59,28 @@ _func_print_str:
   _flag_a:
 ret
 
+# 打印字串
+# 中斷函數打印法
+#   ax = 字串指針
+_func_print_str2:
+  mov si, ax      # 參數 字串所在指針
+  
+  _flag_d:
+    lodsb           # 加載指針
+    cmp al, 0x00    # 是否加載成功
+    jz _flag_c
+    
+    mov ah, 0x0e    # 中斷函數
+    int 0x10
+    jmp _flag_d
+
+  _flag_c:
+ret
 
 
 
 # 保存的字串
-_msg_load: .asciz "Loading elKernel...\r\n\0"
+_msg_load: .asciz "[ OK ] Loading elKernel...\r\n\0"
 
 
 # 填充空白區域對齊扇區
