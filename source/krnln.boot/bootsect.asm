@@ -135,10 +135,10 @@
 # 全局描述符表
 .org 0x1D0
   _GDT_HEADER:
-    .2byte 0x0010          # GDT Size
-    .4byte _GDT_SELECTOR   # GDT Base
+    .2byte _GDT_ENTRIES_END - _GDT_ENTRIES  # GDT Size
+    .4byte _GDT_ENTRIES                     # GDT Base
 
-  _GDT_SELECTOR:
+  _GDT_ENTRIES:
     _GDT_NULL:
       .2byte 0x0000   # limit low
       .2byte 0x0000   # base low
@@ -160,8 +160,9 @@
       .byte  0x00     # base high
 
     _GDT_DATA:
-    
     _GDT_VIDEO:
+
+  _GDT_ENTRIES_END:
 
 # 可引導扇區標識符
 # 填充空白區域對齊扇區
