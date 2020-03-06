@@ -36,7 +36,11 @@
   call _func_print_str2
 
   # 可以進入保護模式啦 萬歲
-  # 可是還沒開始寫
+  lea ax, _msg_entrypm
+  call _func_print_str2
+    call _func_entry_pmode
+    call _func_main
+    # 這裏代碼就不會執行啦
 
   _flag_e:
   lea ax, _msg_failed
@@ -117,20 +121,46 @@
 
   # 加載全局描述符表
   _func_load_gdt:
-    xchg bx, bx
-
     lgdt ds:[_GDT_HEADER] # 加載GDT
-
-    mov ax, 0x0001
+    mov ax, 0x0000
   ret
+
+  # 進入保護模式
+  _func_entry_pmode:
+    xor eax, eax
+
+    cli               # 關閉中斷
+    
+    in al, 0x92       # 使用快速 A20 門
+    or al, 2          # 啓用 A20 綫
+    out 0x92, al
+
+    mov eax, cr0      # 啓用 Protection Enable
+    or al , 1
+    mov cr0, eax
+
+  ret
+
+  # 調用上層代碼
+  _func_main:
+    jmp 0x08:_func_32bit  # 超級遠跳轉
+                          # 一去不復返 2333
+  ret
+
+.code32
+_func_32bit:
+  xchg bx, bx
+  xor eax, eax
+ret
 
 # 保存的字串
 .org 0x150
-  _msg_ok:     .asciz " OK!\r\n"
-  _msg_failed: .asciz " FAILED!\r\n"
-  _msg_load:   .asciz "== Hello World! ==\r\n"
-  _msg_ldisk:  .asciz "Loading elKernel..."
-  _msg_lgdt:   .asciz "Loading GDT...     "
+  _msg_ok:      .asciz " OK!\r\n"
+  _msg_failed:  .asciz " FAILED!\r\n"
+  _msg_load:    .asciz "== Hello World! ==\r\n"
+  _msg_ldisk:   .asciz "Loading elKernel..."
+  _msg_lgdt:    .asciz "Loading GDT...     "
+  _msg_entrypm: .asciz "Entry into Protected Mode..."
 
 # 全局描述符表
 .org 0x1D0
@@ -143,13 +173,13 @@
       .2byte 0x0000   # limit low
       .2byte 0x0000   # base low
       .byte  0x00     # base middle
-      .byte  0x00     # access
+      .byte  0x00     # access type
       .byte  0x00     # limit high, flags
       .byte  0x00     # base high
 
     _GDT_CODE32:
       # Base  0x00000000
-      # Limit 0xFFFFFFFF
+      # Limit 0x000FFFFF
       # Access 1(Pr) 00(Privl) 1(S) 1(Ex) 0(DC) 1(RW) 0(Ac)
       # Flag   1(Gr) 1(Sz) 0(Null) 0(Null)
       .2byte 0xFFFF   # limit low
