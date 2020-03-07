@@ -1,21 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
-    <ProjectConfiguration Include="Debug|Win32">
-      <Configuration>Debug</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
     <ProjectConfiguration Include="Release|Win32">
       <Configuration>Release</Configuration>
       <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Debug|x64">
-      <Configuration>Debug</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Release|x64">
-      <Configuration>Release</Configuration>
-      <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -24,22 +12,7 @@
     <Keyword>Win32Proj</Keyword>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Makefile</ConfigurationType>
-    <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Makefile</ConfigurationType>
-    <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Makefile</ConfigurationType>
-    <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Makefile</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
@@ -49,16 +22,7 @@
   </ImportGroup>
   <ImportGroup Label="Shared">
   </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
@@ -74,22 +38,10 @@
     <LibraryWPath />
     <SourcePath />
     <ExcludePath />
-    <NMakeBuildCommandLine>%windir%\sysnative\bash.exe -c "cd /mnt/c/Users/Moenya/Desktop/elkernel/output/$(Configuration.ToLower())/; objcopy target.obj --image-base=0x0000; ld -m elf_i386 krnln.boot.obj target.obj krnln.core.lib -e _entry -Ttext 0x7c00 -o floppy; objcopy -O binary floppy; ../../source/krnln.boot.stripper/stripper.exe -i ./floppy -a 1024 -c 1440"</NMakeBuildCommandLine>
-    <NMakeReBuildCommandLine>%windir%\sysnative\bash.exe -c "cd /mnt/c/Users/Moenya/Desktop/elkernel/output/$(Configuration.ToLower())/; ld -m elf_i386 krnln.boot.obj target.obj krnln.core.lib -e _entry -Ttext 0x7c00 -Tdata 0x7c00 -o floppy; objcopy -S -O binary floppy; ../../source/krnln.boot.stripper/stripper.exe -i ./floppy -a 1024 -c 1440"</NMakeReBuildCommandLine>
+    <NMakeBuildCommandLine>%windir%\sysnative\bash.exe -c "cd /mnt/c/Users/Moenya/Desktop/elkernel/output/$(Configuration.ToLower())/; objcopy target.obj --image-base=0x0000; ld -m elf_i386 krnln.boot.obj target.obj  krnln.downlevel.lib krnln.core.lib -e _entry -Ttext 0x7c00 -o floppy; objcopy -O binary floppy; ../../source/krnln.boot.stripper/stripper.exe -i ./floppy -a 1024 -c 1440"</NMakeBuildCommandLine>
+    <NMakeReBuildCommandLine>%windir%\sysnative\bash.exe -c "cd /mnt/c/Users/Moenya/Desktop/elkernel/output/$(Configuration.ToLower())/; objcopy target.obj --image-base=0x0000; ld -m elf_i386 target.obj krnln.boot.obj krnln.downlevel.lib krnln.core.lib -e _entry -Ttext 0x7c00 -o floppy; objcopy -O binary floppy; ../../source/krnln.boot.stripper/stripper.exe -i ./floppy -a 1024 -c 1440"</NMakeReBuildCommandLine>
     <OutDir>$(SolutionDir)\output\$(Configuration.ToLower())\</OutDir>
     <IntDir>$(SolutionDir)\output\$(Configuration.ToLower())\obj\$(ProjectName)\</IntDir>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <NMakeOutput>krnln.floppy.mk.exe</NMakeOutput>
-    <NMakePreprocessorDefinitions>WIN32;_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <NMakeOutput>krnln.floppy.mk.exe</NMakeOutput>
-    <NMakePreprocessorDefinitions>_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <NMakeOutput>krnln.floppy.mk.exe</NMakeOutput>
-    <NMakePreprocessorDefinitions>NDEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
   </PropertyGroup>
   <ItemDefinitionGroup>
   </ItemDefinitionGroup>
