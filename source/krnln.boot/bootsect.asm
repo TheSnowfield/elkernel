@@ -1,8 +1,9 @@
-.code16
 .intel_syntax noprefix
 .equ BOOTSTART, 0x07c0
 .equ KRNLNBOOT, 0x07e0
+.extern _krnl_MMain
 
+.code16
 .text
   .global _entry
 
@@ -135,7 +136,7 @@
     or al, 2          # 啓用 A20 綫
     out 0x92, al
 
-    mov eax, cr0      # 啓用 Protection Enable
+    mov eax, cr0      # 啓用保護
     or al , 1
     mov cr0, eax
 
@@ -143,6 +144,7 @@
 
   # 調用上層代碼
   _func_main:
+    xchg bx, bx
     jmp 0x08:_func_32bit  # 超級遠跳轉
                           # 一去不復返 2333
   ret
@@ -150,7 +152,24 @@
 .code32
 _func_32bit:
   xchg bx, bx
-  xor eax, eax
+  xchg bx, bx
+
+  mov ax, 0x0008
+  mov ds, ax
+  mov gs, ax
+  mov es, ax
+  # mov ss, ax
+
+  xor eax, eax      # 清空寄存器
+  mov ebx, eax      # 為接下來的代碼做準備
+  mov ecx, eax
+  mov edx, eax
+  
+  push 0            # 空參數
+  call _krnl_MMain  # 跳到函數入口
+
+  jmp $             # 死循環啦
+
 ret
 
 # 保存的字串
