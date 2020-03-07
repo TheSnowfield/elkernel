@@ -106,7 +106,7 @@
     mov es, ax
     mov ah, 0x02      # 中斷函數
     mov bx, 0x0000    # 中斷參數 緩衝區偏移
-    mov al, 0x0A      # 中斷參數 讀取扇區數
+    mov al, 0x18      # 中斷參數 讀取扇區數
     mov ch, 0x00      # 中斷參數 柱面號
     mov cl, 0x02      # 中斷參數 扇區號
     mov dh, 0x00      # 中斷參數 磁頭號

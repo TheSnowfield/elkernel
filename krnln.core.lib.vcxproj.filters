@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="source\krnln.core.lib\krnl_MCallDllCmd.c" />
+    <ClCompile Include="source\krnln.core.lib\krnl_MCallKrnlLibCmd.c" />
+    <ClCompile Include="source\krnln.core.lib\krnl_MCallLibCmd.c" />
+    <ClCompile Include="source\krnln.core.lib\krnl_MExitProcess.c" />
+    <ClCompile Include="source\krnln.core.lib\krnl_MFree.c" />
+    <ClCompile Include="source\krnln.core.lib\krnl_MGetDllCmdAdr.c" />
+    <ClCompile Include="source\krnln.core.lib\krnl_MLoadBeginWin.c" />
+    <ClCompile Include="source\krnln.core.lib\krnl_MMain.c" />
+    <ClCompile Include="source\krnln.core.lib\krnl_MMalloc.c" />
+    <ClCompile Include="source\krnln.core.lib\krnl_MMallocNoCheck.c" />
+    <ClCompile Include="source\krnln.core.lib\krnl_MMessageLoop.c" />
+    <ClCompile Include="source\krnln.core.lib\krnl_MOtherHelp.c" />
+    <ClCompile Include="source\krnln.core.lib\krnl_MReadProperty.c" />
+    <ClCompile Include="source\krnln.core.lib\krnl_MRealloc.c" />
+    <ClCompile Include="source\krnln.core.lib\krnl_MReportError.c" />
+    <ClCompile Include="source\krnln.core.lib\krnl_MWriteProperty.c" />
+    <ClCompile Include="source\krnln.core.lib\krnl_ProcessNotifyLib.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header">
+      <UniqueIdentifier>{e166c113-dceb-47ed-b1b0-61a08b89a53e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="source\krnln.core.lib\eappinfo.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="source\common\stdint.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="source\krnln.core.lib\stdafx.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

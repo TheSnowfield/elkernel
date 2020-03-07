@@ -3,13 +3,5 @@
 
 __declspec(naked)
 krnl_MOtherHelp() {
-  _asm {
-    mov eax, eax
-    mov eax, eax
-    mov eax, eax
-    mov eax, eax
-    mov eax, eax
-    mov eax, eax
-  }
   __asm { ret };
 }

@@ -24,9 +24,9 @@
     <ClCompile Include="source\krnln.core.lib\krnl_MReportError.c" />
     <ClCompile Include="source\krnln.core.lib\krnl_MWriteProperty.c" />
     <ClCompile Include="source\krnln.core.lib\krnl_ProcessNotifyLib.c" />
-    <ClCompile Include="source\krnln.core.lib\spec_ProcessNotifyLib.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="source\common\stdint.h" />
     <ClInclude Include="source\krnln.core.lib\eappinfo.h" />
     <ClInclude Include="source\krnln.core.lib\stdafx.h" />
   </ItemGroup>
@@ -102,7 +102,8 @@
       <WarningLevel>Level3</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <SDLCheck>false</SDLCheck>
+      <SDLCheck>
+      </SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>
@@ -110,6 +111,7 @@
       <DebugInformationFormat />
       <ExceptionHandling>false</ExceptionHandling>
       <BufferSecurityCheck>false</BufferSecurityCheck>
+      <AdditionalIncludeDirectories>$(ProjectDir)\source\common\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
