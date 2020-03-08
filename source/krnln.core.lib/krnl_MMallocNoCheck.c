@@ -4,6 +4,6 @@
 #include "stdafx.h"
 
 void* __cdecl
-krnl_MMallocNoCheck(uint32_t uBytes) {
+krnl_MMallocNoCheck_disable(uint32_t uBytes) {
   return NULL;
 }

@@ -8,6 +8,5 @@ extern int (EStartup)();
 
 int __cdecl
 krnl_MMain() {
-  __asm { xor eax, eax }
   return EStartup();
 }

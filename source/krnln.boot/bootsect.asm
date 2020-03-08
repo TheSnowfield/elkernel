@@ -154,7 +154,7 @@ _func_32bit:
   xchg bx, bx
   xchg bx, bx
 
-  mov ax, 0x0008
+  mov ax, 0x0010
   mov ds, ax
   mov gs, ax
   mov es, ax
@@ -199,7 +199,7 @@ ret
     _GDT_CODE32:
       # Base  0x00000000
       # Limit 0x000FFFFF
-      # Access 1(Pr) 00(Privl) 1(S) 1(Ex) 0(DC) 1(RW) 0(Ac)
+      # Access 1(Pr) 00(Privl) 1(S) 1(Ex) 0(DC) 1(RW) 1(Ac)
       # Flag   1(Gr) 1(Sz) 0(Null) 0(Null)
       .2byte 0xFFFF   # limit low
       .2byte 0x0000   # base low
@@ -209,8 +209,18 @@ ret
       .byte  0x00     # base high
 
     _GDT_DATA:
-    _GDT_VIDEO:
+      # Base  0x00000000
+      # Limit 0x000FFFFF
+      # Access 1(Pr) 00(Privl) 1(S) 0(Ex) 0(DC) 1(RW) 1(Ac)
+      # Flag   1(Gr) 1(Sz) 0(Null) 0(Null)
+      .2byte 0xFFFF   # limit low
+      .2byte 0x0000   # base low
+      .byte  0x00     # base middle
+      .byte  0x93     # access type
+      .byte  0xCF     # limit high, flags
+      .byte  0x00     # base high
 
+    _GDT_VIDEO:
   _GDT_ENTRIES_END:
 
 # 可引導扇區標識符
