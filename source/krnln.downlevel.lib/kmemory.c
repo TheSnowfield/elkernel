@@ -1,19 +1,16 @@
 ﻿#include "stdint.h"
 
-void* __stdcall
-_kmemory_malloc(uint32_t nSizeBytes) {
+typedef uint32_t
+  ( __stdcall kmemory_notifunc)
+  (uint32_t uNotifyType, uint32_t voidArgument0, uint32_t voidArgument1);
 
-  return NULL;
-}
 
-void __stdcall
-_kmemory_free(void* lpMemory) {
-
-}
+// 回調函數
+kmemory_notifunc *lpfnMemoryCallback = NULL;
 
 void __stdcall
-_kmemory_fill(void* lpMemory, uint8_t nValue, uint32_t nLength) {
-
+_kmemory_setcallback(kmemory_notifunc* pfnCallback) {
+  lpfnMemoryCallback = pfnCallback;
 }
 
 void __stdcall
@@ -28,7 +25,6 @@ _kmemory_copy8(void* lpMemoryDst, void* lpMemorySrc,
     ++lpWrite; ++lpRead;
   }
 }
-
 
 uint8_t __stdcall
 _kmemory_read8(void* lpMemory, int32_t nOffset) {

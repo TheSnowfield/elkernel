@@ -38,7 +38,7 @@
     <LibraryWPath />
     <SourcePath />
     <ExcludePath />
-    <NMakeBuildCommandLine>%windir%\sysnative\bash.exe -c "cd /mnt/c/Users/Moenya/Desktop/elkernel/output/$(Configuration.ToLower())/; objcopy target.obj --image-base=0x0000; ld -m elf_i386 krnln.boot.obj target.obj  krnln.downlevel.lib krnln.core.lib -e _entry -Ttext 0x7e00 -o floppy; objcopy -O binary floppy; ../../source/krnln.boot.stripper/stripper.exe -i ./floppy -a 512 -c 2880"</NMakeBuildCommandLine>
+    <NMakeBuildCommandLine>%windir%\sysnative\bash.exe -c "cd /mnt/c/Users/Moenya/Desktop/elkernel/output/$(Configuration.ToLower())/; objcopy target.obj --image-base=0x0000; ld -m elf_i386 krnln.boot.obj target.obj  krnln.downlevel.lib krnln.core.lib -e _entry -Ttext 0x7c00 -o floppy; objcopy -O binary floppy; ../../source/krnln.boot.stripper/stripper.exe -i ./floppy -a 512 -c 2880"</NMakeBuildCommandLine>
     <NMakeReBuildCommandLine>%windir%\sysnative\bash.exe -c "cd /mnt/c/Users/Moenya/Desktop/elkernel/output/$(Configuration.ToLower())/; objcopy target.obj --image-base=0x0000; ld -m elf_i386 krnln.boot.obj target.obj  krnln.downlevel.lib krnln.core.lib -e _entry -Ttext 0x7c00 -o floppy; objcopy -O binary floppy; ../../source/krnln.boot.stripper/stripper.exe -i ./floppy -a 512 -c 2880"</NMakeReBuildCommandLine>
     <OutDir>$(SolutionDir)\output\$(Configuration.ToLower())\</OutDir>
     <IntDir>$(SolutionDir)\output\$(Configuration.ToLower())\obj\$(ProjectName)\</IntDir>
