@@ -144,30 +144,10 @@
 
   # 調用上層代碼
   _func_main:
-    jmp 0x08:_func_32bit  # 超級遠跳轉
+    jmp 0x08:_krnl_MMain  # 超級遠跳轉
                           # 一去不復返 2333
   ret
 
-.code32
-_func_32bit:
-
-  mov ax, 0x0010
-  mov ds, ax
-  mov gs, ax
-  mov es, ax
-  # mov ss, ax
-
-  xor eax, eax      # 清空寄存器
-  mov ebx, eax      # 為接下來的代碼做準備
-  mov ecx, eax
-  mov edx, eax
-  
-  push 0            # 空參數
-  call _krnl_MMain  # 跳到函數入口
-
-  jmp $             # 死循環啦
-
-ret
 
 # 保存的字串
 .org 0x150

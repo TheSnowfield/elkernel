@@ -40,6 +40,6 @@ _kmemory_write8(void* lpMemory, uint8_t nValue, int32_t nOffset) {
 
 void __stdcall
 _kmemory_write16(void* lpMemory, uint16_t nValue, int32_t nOffset) {
-  uint8_t* lpWrite = (uint8_t*)lpMemory + nOffset;
+  uint16_t* lpWrite = (uint16_t*)lpMemory + nOffset;
   (*(uint16_t*)lpWrite) = nValue;
 }

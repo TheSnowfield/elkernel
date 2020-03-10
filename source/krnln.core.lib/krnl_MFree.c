@@ -6,12 +6,6 @@
 void __cdecl
 krnl_MFree(void *lpMemory) {
 
-  __asm { xchg bx, bx}
-  __asm { xchg bx, bx}
-  __asm { xchg bx, bx}
-  __asm { xchg bx, bx}
-  __asm { xchg bx, bx}
-
   // 還沒準備好
   if (!lpfnMemoryCallback)
     return NULL;
