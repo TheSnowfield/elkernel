@@ -70,6 +70,8 @@
       <PrecompiledHeader />
       <PrecompiledHeaderFile />
       <DebugInformationFormat />
+      <AssemblerOutput>AssemblyCode</AssemblerOutput>
+      <Optimization>MaxSpeed</Optimization>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
