@@ -62,41 +62,13 @@ _kmemory_write32(void* lpMemory, uint32_t nValue, int32_t nOffset) {
   (*(uint32_t*)lpWrite) = nValue;
 }
 
-__declspec(naked)
+#pragma optimize("", off)
+void __stdcall
 _kmemory_fill8(void* lpMemory, uint8_t nValue, int32_t nLength) {
-  //uint8_t* lpWrite = lpMemory;
-  //while (nLength) {
-  //  (*lpWrite) = nValue;
-  //  ++lpWrite; --nLength;
-  //}
-  __asm {
-    push	ebp
-    mov	ebp, esp
-    push	ecx
-
-    mov	eax, DWORD PTR [ebp + 8]
-    mov	DWORD PTR [ebp-4], eax
-    LN2kmemory_fi:
-
-    cmp	DWORD PTR [ebp + 16], 0
-    je	SHORT LN1kmemory_fi
-
-    mov	ecx, DWORD PTR [ebp - 4]
-    mov	dl, BYTE PTR [ebp + 12]
-    mov	BYTE PTR[ecx], dl
-
-    mov	eax, DWORD PTR [ebp - 4]
-    add	eax, 1
-    mov	DWORD PTR [ebp - 4], eax
-    mov	ecx, DWORD PTR [ebp + 16]
-    sub	ecx, 1
-    mov	DWORD PTR [ebp + 16], ecx
-
-    jmp	SHORT LN2kmemory_fi
-    LN1kmemory_fi:
-
-    mov	esp, ebp
-    pop	ebp
-    ret	12
+  uint8_t* lpWrite = lpMemory;
+  while (nLength) {
+    (*lpWrite) = nValue;
+    ++lpWrite; --nLength;
   }
 }
+#pragma optimize("", on)
