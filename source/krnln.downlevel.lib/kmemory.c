@@ -6,7 +6,7 @@ typedef uint32_t
 
 
 // 回調函數
-kmemory_notifunc *lpfnMemoryCallback = NULL;
+static kmemory_notifunc *lpfnMemoryCallback = NULL;
 
 void __stdcall
 _kmemory_setcallback(kmemory_notifunc* pfnCallback) {
