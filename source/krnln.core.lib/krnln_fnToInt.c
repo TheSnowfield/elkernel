@@ -9,11 +9,12 @@
 
 void __cdecl
 krnln_fnToInt(PMDATA_INF pRetData, UINT32 uArgCount, PMDATA_INF pArgInf) {
-	switch (pArgInf->m_dtDataType) {
-	case SDT_BOOL:
-	case SDT_INT:
-	case SDT_SHORT:
-	case SDT_SUB_PTR:
-		pRetData->m_int = pArgInf->m_int;
-	}
+  switch (pArgInf->m_dtDataType) {
+    case SDT_BOOL:
+    case SDT_INT:
+    case SDT_SHORT:
+    case SDT_SUB_PTR:
+      pRetData->m_int = pArgInf->m_int; 
+      return;
+  }
 }

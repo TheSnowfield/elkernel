@@ -8,7 +8,7 @@ krnl_MFree(void *lpMemory) {
 
   // 還沒準備好
   if (!lpfnMemoryCallback)
-    return NULL;
+    return;
 
   // 通知上級函數
   lpfnMemoryCallback(

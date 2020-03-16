@@ -8,7 +8,7 @@ typedef short              int16_t, SHORT, INT16;
 typedef int                int32_t, bool, INT;
 typedef long               LONG, BOOL, * LPBOOL, * PBOOL, LONG_PTR, * PLONG_PTR;
 typedef long long          int64_t, QWORD, INT64;
-typedef unsigned char      uint8_t, byte, BYTE, UINT8, * BYTE, * LPBYTE, * PBYTE;
+typedef unsigned char      uint8_t, byte, BYTE, UINT8, * LPBYTE, * PBYTE;
 typedef unsigned short     uint16_t, USHORT, UINT16, WORD;
 typedef unsigned int       uint32_t, UINT32, DWORD;
 typedef unsigned long      ULONG_PTR, DWORD_PTR;
