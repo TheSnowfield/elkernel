@@ -62,13 +62,47 @@ _kmemory_write32(void* lpMemory, uint32_t nValue, int32_t nOffset) {
   (*(uint32_t*)lpWrite) = nValue;
 }
 
+void __stdcall
+_kmemory_write64(void* lpMemory, uint64_t nValue, int32_t nOffset) {
+  uint64_t* lpWrite = (uint64_t*)lpMemory + nOffset;
+  (*(uint64_t*)lpWrite) = nValue;
+}
+
 #pragma optimize("", off)
 void __stdcall
-_kmemory_fill8(void* lpMemory, uint8_t nValue, int32_t nLength) {
+_kmemory_fill8(void* lpMemory, uint8_t nValue, uint32_t nLength) {
   uint8_t* lpWrite = lpMemory;
   while (nLength) {
     (*lpWrite) = nValue;
     ++lpWrite; --nLength;
   }
 }
+
+void __stdcall
+_kmemory_fill16(void* lpMemory, uint16_t nValue, uint32_t nLength) {
+  uint16_t* lpWrite = lpMemory;
+  while (nLength) {
+    (*lpWrite) = nValue;
+    ++lpWrite; --nLength;
+  }
+}
+
+void __stdcall
+_kmemory_fill32(void* lpMemory, uint32_t nValue, uint32_t nLength) {
+  uint32_t* lpWrite = lpMemory;
+  while (nLength) {
+    (*lpWrite) = nValue;
+    ++lpWrite; --nLength;
+  }
+}
+
+void __stdcall
+_kmemory_fill64(void* lpMemory, uint64_t nValue, uint32_t nLength) {
+  uint64_t* lpWrite = lpMemory;
+  while (nLength) {
+    (*lpWrite) = nValue;
+    ++lpWrite; --nLength;
+  }
+}
+
 #pragma optimize("", on)

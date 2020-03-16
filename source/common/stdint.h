@@ -3,14 +3,16 @@
 
 #define NULL ((void*)0)
 
-typedef signed char        int8_t;
-typedef short              int16_t;
-typedef int                int32_t;
-typedef long long          int64_t;
-typedef unsigned char      uint8_t;
-typedef unsigned short     uint16_t;
-typedef unsigned int       uint32_t;
-typedef unsigned long long uint64_t;
+typedef signed char        int8_t , INT8;
+typedef short              int16_t, SHORT, INT16;
+typedef int                int32_t, bool, INT;
+typedef long               LONG, BOOL, * LPBOOL, * PBOOL, LONG_PTR, * PLONG_PTR;
+typedef long long          int64_t, QWORD, INT64;
+typedef unsigned char      uint8_t, byte, BYTE, UINT8, * BYTE, * LPBYTE, * PBYTE;
+typedef unsigned short     uint16_t, USHORT, UINT16, WORD;
+typedef unsigned int       uint32_t, UINT32, DWORD;
+typedef unsigned long      ULONG_PTR, DWORD_PTR;
+typedef unsigned long long uint64_t, UINT64;
 
 typedef signed char        int_least8_t;
 typedef short              int_least16_t;
@@ -33,10 +35,16 @@ typedef unsigned long long uint_fast64_t;
 typedef long long          intmax_t;
 typedef unsigned long long uintmax_t;
 
-typedef uint8_t byte;
-typedef int32_t bool;
+typedef float FLOAT;
+typedef double DOUBLE, DATE, * PDATE;
 
-// These macros must exactly match those in the Windows SDK's intsafe.h.
+#define MAKEWORD(a, b)      ((WORD)(((BYTE)(((DWORD_PTR)(a)) & 0xff)) | ((WORD)((BYTE)(((DWORD_PTR)(b)) & 0xff))) << 8))
+#define MAKELONG(a, b)      ((LONG)(((WORD)(((DWORD_PTR)(a)) & 0xffff)) | ((DWORD)((WORD)(((DWORD_PTR)(b)) & 0xffff))) << 16))
+#define LOWORD(l)           ((WORD)(((DWORD_PTR)(l)) & 0xffff))
+#define HIWORD(l)           ((WORD)((((DWORD_PTR)(l)) >> 16) & 0xffff))
+#define LOBYTE(w)           ((BYTE)(((DWORD_PTR)(w)) & 0xff))
+#define HIBYTE(w)           ((BYTE)((((DWORD_PTR)(w)) >> 8) & 0xff))
+
 #define INT8_MIN         (-127i8 - 1)
 #define INT16_MIN        (-32767i16 - 1)
 #define INT32_MIN        (-2147483647i32 - 1)
@@ -76,15 +84,9 @@ typedef int32_t bool;
 #define UINT_FAST32_MAX  UINT32_MAX
 #define UINT_FAST64_MAX  UINT64_MAX
 
-#ifdef _WIN64
-#define INTPTR_MIN   INT64_MIN
-#define INTPTR_MAX   INT64_MAX
-#define UINTPTR_MAX  UINT64_MAX
-#else
 #define INTPTR_MIN   INT32_MIN
 #define INTPTR_MAX   INT32_MAX
 #define UINTPTR_MAX  UINT32_MAX
-#endif
 
 #define INTMAX_MIN       INT64_MIN
 #define INTMAX_MAX       INT64_MAX
@@ -93,9 +95,7 @@ typedef int32_t bool;
 #define PTRDIFF_MIN      INTPTR_MIN
 #define PTRDIFF_MAX      INTPTR_MAX
 
-#ifndef SIZE_MAX
 #define SIZE_MAX     UINTPTR_MAX
-#endif
 
 #define SIG_ATOMIC_MIN   INT32_MIN
 #define SIG_ATOMIC_MAX   INT32_MAX

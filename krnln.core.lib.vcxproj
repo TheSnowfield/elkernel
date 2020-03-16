@@ -7,6 +7,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="source\krnln.core.lib\krnln_fnToInt.c" />
     <ClCompile Include="source\krnln.core.lib\krnl_MCallDllCmd.c" />
     <ClCompile Include="source\krnln.core.lib\krnl_MCallKrnlLibCmd.c" />
     <ClCompile Include="source\krnln.core.lib\krnl_MCallLibCmd.c" />
@@ -28,6 +29,7 @@
   <ItemGroup>
     <ClInclude Include="source\common\stdint.h" />
     <ClInclude Include="source\krnln.core.lib\eappinfo.h" />
+    <ClInclude Include="source\krnln.core.lib\elib.h" />
     <ClInclude Include="source\krnln.core.lib\stdafx.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

@@ -1,5 +1,6 @@
 #pragma once
 #include "stdint.h"
+#include "elib.h"
 
 typedef uint32_t
   (__stdcall kmemory_notifunc)
