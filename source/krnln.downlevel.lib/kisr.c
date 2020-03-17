@@ -1,38 +1,53 @@
-#include "stdint.h"
+ï»¿#include "stdint.h"
+#pragma warning(disable:4090)
 
-// ÖĞ”à½ÓÊÕÆ÷
-// ÄÚ²¿Ê¹ÓÃµÄÖĞ”àº¯”µ±í
+// ä¸­æ–·æ¥æ”¶å™¨
+// å†…éƒ¨ä½¿ç”¨çš„ä¸­æ–·å‡½æ•¸è¡¨
 typedef void
 (__stdcall kisr_notifunc)();
 static kisr_notifunc* lpfnIsrCallback;
 static const void* _kisr_fault_table[32];
 
-// È¡µÃÖĞ”àË÷Òıº¯”µµØÖ·
+// å–å¾—ä¸­æ–·ç´¢å¼•å‡½æ•¸åœ°å€
 void* __stdcall
 _kisr_get_service(uint8_t nIndex) {
   return nIndex < 32 ? _kisr_fault_table[nIndex] : NULL;
 }
 
-// ÔOÖÃÖĞ”à½ÓÊÕÆ÷
+// è¨­ç½®ä¸­æ–·æ¥æ”¶å™¨
 void __stdcall
 _kisr_set_callback(kisr_notifunc* pfnCallback) {
   lpfnIsrCallback = pfnCallback;
 }
 
-// ÄÚ²¿Ê¹ÓÃµÄÒ»‚€Ìø°å
+// å†…éƒ¨ä½¿ç”¨çš„ä¸€å€‹è·³æ¿
 void __declspec(naked)
 _callback_kisr_stub() {
   __asm {
+    pushad
+    push ds
+    push es
+    push fs
+    push gs
 
+    mov ax, 0x0010
+    mov ds, ax
+    mov es, ax
+    mov fs, ax
+    mov gs, ax
+    call lpfnIsrCallback
 
-
+    pop gs
+    pop fs
+    pop es
+    pop ds
+    popad
 
     iret
   }
 }
 
-
-// Intel±£ÁôµÄÖĞ”àº¯”µ 0-31
+// Intelä¿ç•™çš„ä¸­æ–·å‡½æ•¸ 0-31
 #define FAULTDEF(i) \
   void __declspec(naked) _kisr_fault##i(){ \
     __asm { xchg bx, bx }; \
@@ -42,7 +57,7 @@ _callback_kisr_stub() {
     __asm { jmp _callback_kisr_stub }; \
   }
 
-// Ò»´ó¶ÑÖĞ”àÌøŞDº¯”µ
+// ä¸€å¤§å †ä¸­æ–·è·³è½‰å‡½æ•¸
 FAULTDEF(0); FAULTDEF(1); FAULTDEF(2); FAULTDEF(3);
 FAULTDEF(4); FAULTDEF(5); FAULTDEF(6); FAULTDEF(7);
 FAULTDEF(8); FAULTDEF(9); FAULTDEF(10); FAULTDEF(11);
