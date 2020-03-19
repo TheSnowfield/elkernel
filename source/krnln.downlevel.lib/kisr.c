@@ -39,7 +39,7 @@ _callback_kisr_stub() {
     pop ds
     popad
 
-    // 中斷索引號
+    // 彈出中斷索引號
     pop eax
 
     iretd
@@ -48,8 +48,8 @@ _callback_kisr_stub() {
 
 // Intel保留的中斷函數 0-31
 #define FAULTDEF(i) \
-  void __declspec(naked) _kisr_fault##i(){ \
-__asm { xchg bx, bx }; \
+  void __declspec(naked) _kisr_irq_fault##i(){ \
+    __asm { xchg bx, bx }; \
     __asm { cli }; \
     __asm { push i }; \
     __asm { jmp _callback_kisr_stub }; \
@@ -57,7 +57,6 @@ __asm { xchg bx, bx }; \
 
 #define IRQDEF(i) \
   void __declspec(naked) _kisr_irq##i(){ \
-    __asm { xchg bx, bx }; \
     __asm { cli }; \
     __asm { push i }; \
     __asm { jmp _callback_kisr_stub }; \
@@ -90,14 +89,14 @@ _kisr_unknown() {
 }
 
 static const void* _kisr_fault_table[48] = {
-  _kisr_fault0,_kisr_fault1,_kisr_fault2,_kisr_fault3,
-  _kisr_fault4,_kisr_fault5,_kisr_fault6,_kisr_fault7,
-  _kisr_fault8,_kisr_fault9,_kisr_fault10,_kisr_fault11,
-  _kisr_fault12,_kisr_fault13,_kisr_fault14,_kisr_fault15,
-  _kisr_fault16,_kisr_fault17,_kisr_fault18,_kisr_fault19,
-  _kisr_fault20,_kisr_fault21,_kisr_fault22,_kisr_fault23,
-  _kisr_fault24,_kisr_fault25,_kisr_fault26,_kisr_fault27,
-  _kisr_fault28,_kisr_fault29,_kisr_fault30,_kisr_fault31,
+  _kisr_irq_fault0,_kisr_irq_fault1,_kisr_irq_fault2,_kisr_irq_fault3,
+  _kisr_irq_fault4,_kisr_irq_fault5,_kisr_irq_fault6,_kisr_irq_fault7,
+  _kisr_irq_fault8,_kisr_irq_fault9,_kisr_irq_fault10,_kisr_irq_fault11,
+  _kisr_irq_fault12,_kisr_irq_fault13,_kisr_irq_fault14,_kisr_irq_fault15,
+  _kisr_irq_fault16,_kisr_irq_fault17,_kisr_irq_fault18,_kisr_irq_fault19,
+  _kisr_irq_fault20,_kisr_irq_fault21,_kisr_irq_fault22,_kisr_irq_fault23,
+  _kisr_irq_fault24,_kisr_irq_fault25,_kisr_irq_fault26,_kisr_irq_fault27,
+  _kisr_irq_fault28,_kisr_irq_fault29,_kisr_irq_fault30,_kisr_irq_fault31,
 
   _kisr_irq32, _kisr_irq33,_kisr_irq34,_kisr_irq35,
   _kisr_irq36,_kisr_irq37,_kisr_irq38,_kisr_irq39,
