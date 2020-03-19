@@ -128,6 +128,8 @@
 
   # 進入保護模式
   _func_entry_pmode:
+    xchg bx, bx
+
     xor eax, eax
 
     cli               # 關閉中斷
@@ -144,7 +146,7 @@
 
   # 調用上層代碼
   _func_main:
-    jmp 0x08:_krnl_MMain  # 超級遠跳轉
+    ljmp 0x08:_krnl_MMain  # 超級遠跳轉
                           # 一去不復返 2333
   ret
 
