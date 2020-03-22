@@ -3,5 +3,9 @@
   <ItemGroup>
     <ClCompile Include="source\krnln.downlevel.lib\kmemory.c" />
     <ClCompile Include="source\krnln.downlevel.lib\kisr.c" />
+    <ClCompile Include="source\krnln.downlevel.lib\kdevice_keyboard.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="source\krnln.downlevel.lib\vkcode.h" />
   </ItemGroup>
 </Project>

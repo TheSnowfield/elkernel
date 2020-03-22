@@ -7,7 +7,6 @@
 .text
   .global _entry
   _entry:
-  xchg bx, bx
 
   # 清除寄存器 
   # 不清除會導致在各個仿真器/虛擬機上行爲不同
@@ -137,8 +136,6 @@
 
   # 進入保護模式
   _func_entry_pmode:
-    xchg bx, bx
-
     xor eax, eax
 
     cli               # 關閉中斷
