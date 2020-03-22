@@ -9,7 +9,8 @@
   _entry:
   xchg bx, bx
 
-  # 清除寄存器
+  # 清除寄存器 
+  # 不清除會導致在各個仿真器/虛擬機上行爲不同
   mov ax, 0x0000
   mov cx, ax
   mov dx, ax
@@ -149,12 +150,6 @@
     mov eax, cr0      # 啓用保護
     or al, 1
     mov cr0, eax
-
-  #  xor edx, edx
-  #  xor eax, eax
-  #  mov al, 0x01
-  #  mov ecx, 0x00000487
-  #  wrmsr
 
   ret
 
