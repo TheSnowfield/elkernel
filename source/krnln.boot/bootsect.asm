@@ -6,10 +6,18 @@
 .code16
 .text
   .global _entry
-
-  # 將扇區内容加載到内存
   _entry:
   xchg bx, bx
+
+  # 清除寄存器
+  mov ax, 0x0000
+  mov cx, ax
+  mov dx, ax
+  mov bx, ax
+  mov ds, ax
+  mov es, ax
+  mov fs, ax
+  mov gs, ax
 
   # 重置顯示器
   call _func_reset_screen
@@ -139,14 +147,20 @@
     out 0x92, al
 
     mov eax, cr0      # 啓用保護
-    or al , 1
+    or al, 1
     mov cr0, eax
+
+  #  xor edx, edx
+  #  xor eax, eax
+  #  mov al, 0x01
+  #  mov ecx, 0x00000487
+  #  wrmsr
 
   ret
 
   # 調用上層代碼
   _func_main:
-    ljmp 0x08:_krnl_MMain  # 超級遠跳轉
+    jmp 0x08:_krnl_MMain  # 超級遠跳轉
                           # 一去不復返 2333
   ret
 
