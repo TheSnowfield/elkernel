@@ -9,3 +9,6 @@
 
 # Executable files
 *.exe
+
+# Others
+*.res
