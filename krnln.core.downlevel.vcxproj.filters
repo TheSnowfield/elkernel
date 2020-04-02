@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="source\krnln.core.downlevel\kmemory.c" />
+    <ClCompile Include="source\krnln.core.downlevel\kisr.c" />
+    <ClCompile Include="source\krnln.core.downlevel\kdevice_keyboard.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="source\krnln.core.downlevel\vkcode.h" />
+  </ItemGroup>
+</Project>

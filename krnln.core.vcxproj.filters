@@ -55,6 +55,9 @@
     <ClCompile Include="source\krnln.core.lib\krnln_fnToInt.c">
       <Filter>Source\KrnlnExt</Filter>
     </ClCompile>
+    <ClCompile Include="source\krnln.core.lib\krnln_fnMod.c">
+      <Filter>Source\KrnlnExt</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header">

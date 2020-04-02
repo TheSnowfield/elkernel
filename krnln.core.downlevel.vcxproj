@@ -6,43 +6,16 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="source\krnln.core.lib\krnln_fnToInt.c" />
-    <ClCompile Include="source\krnln.core.lib\krnl_MCallDllCmd.c" />
-    <ClCompile Include="source\krnln.core.lib\krnl_MCallKrnlLibCmd.c" />
-    <ClCompile Include="source\krnln.core.lib\krnl_MCallLibCmd.c" />
-    <ClCompile Include="source\krnln.core.lib\krnl_MExitProcess.c" />
-    <ClCompile Include="source\krnln.core.lib\krnl_MFree.c" />
-    <ClCompile Include="source\krnln.core.lib\krnl_MGetDllCmdAdr.c" />
-    <ClCompile Include="source\krnln.core.lib\krnl_MLoadBeginWin.c" />
-    <ClCompile Include="source\krnln.core.lib\krnl_MMain.c" />
-    <ClCompile Include="source\krnln.core.lib\krnl_MMalloc.c" />
-    <ClCompile Include="source\krnln.core.lib\krnl_MMallocNoCheck.c" />
-    <ClCompile Include="source\krnln.core.lib\krnl_MMessageLoop.c" />
-    <ClCompile Include="source\krnln.core.lib\krnl_MOtherHelp.c" />
-    <ClCompile Include="source\krnln.core.lib\krnl_MReadProperty.c" />
-    <ClCompile Include="source\krnln.core.lib\krnl_MRealloc.c" />
-    <ClCompile Include="source\krnln.core.lib\krnl_MReportError.c" />
-    <ClCompile Include="source\krnln.core.lib\krnl_MWriteProperty.c" />
-    <ClCompile Include="source\krnln.core.lib\krnl_ProcessNotifyLib.c" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="source\common\stdint.h" />
-    <ClInclude Include="source\krnln.core.lib\eappinfo.h" />
-    <ClInclude Include="source\krnln.core.lib\elib.h" />
-    <ClInclude Include="source\krnln.core.lib\stdafx.h" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
-    <ProjectGuid>{772A30A4-37A7-440B-9052-3966FAFDA413}</ProjectGuid>
-    <Keyword>Win32Proj</Keyword>
-    <RootNamespace>elKernel</RootNamespace>
+    <ProjectGuid>{FBAF3892-6BF0-4372-B76B-D029608FD17C}</ProjectGuid>
+    <RootNamespace>krnlndownlevellib</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>krnln.core.lib</ProjectName>
+    <ProjectName>krnln.core.downlevel</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
@@ -67,40 +40,24 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LinkIncremental>true</LinkIncremental>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <ExecutablePath>$(VC_ExecutablePath_x86);$(CommonExecutablePath)</ExecutablePath>
+    <OutDir>$(SolutionDir)\output\$(Configuration.ToLower())\</OutDir>
+    <IntDir>$(SolutionDir)\output\$(Configuration.ToLower())\obj\$(ProjectName)\</IntDir>
+    <TargetName>krnln.core.downlevel</TargetName>
     <IncludePath />
     <ReferencePath />
     <LibraryPath />
     <LibraryWPath />
     <SourcePath />
     <ExcludePath />
-    <OutDir>$(SolutionDir)\output\$(Configuration.ToLower())\</OutDir>
-    <IntDir>$(SolutionDir)\output\$(Configuration.ToLower())\obj\$(ProjectName)\</IntDir>
-    <TargetName>krnln.core</TargetName>
+    <ExecutablePath>$(VC_ExecutablePath_x86);$(CommonExecutablePath)</ExecutablePath>
   </PropertyGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <WarningLevel>Level3</WarningLevel>
-      <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
-      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-    </ClCompile>
-    <Link>
-      <SubSystem>Windows</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-    </Link>
-  </ItemDefinitionGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -108,20 +65,41 @@
       </SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <PrecompiledHeaderFile>
-      </PrecompiledHeaderFile>
-      <DebugInformationFormat />
-      <ExceptionHandling>false</ExceptionHandling>
-      <BufferSecurityCheck>false</BufferSecurityCheck>
       <AdditionalIncludeDirectories>$(ProjectDir)\source\common\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <ExceptionHandling>false</ExceptionHandling>
+      <PrecompiledHeader />
+      <PrecompiledHeaderFile />
+      <DebugInformationFormat />
+      <Optimization>MaxSpeed</Optimization>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="source\krnln.core.downlevel\kdevice_keyboard.c" />
+    <ClCompile Include="source\krnln.core.downlevel\kisr.c" />
+    <ClCompile Include="source\krnln.core.downlevel\kmemory.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="source\krnln.core.downlevel\vkcode.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

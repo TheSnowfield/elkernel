@@ -68,6 +68,7 @@ _kmemory_write64(void* lpMemory, uint64_t nValue, int32_t nOffset) {
   (*(uint64_t*)lpWrite) = nValue;
 }
 
+
 #pragma optimize("", off)
 void __stdcall
 _kmemory_fill8(void* lpMemory, uint8_t nValue, uint32_t nLength) {
