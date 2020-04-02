@@ -1,7 +1,7 @@
-#include "stdint.h"
+ï»¿#include "stdint.h"
 #include "vkcode.h"
 
-// ’ßÃè´aÓ³Éä±í
+// æƒæç¢¼æ˜ å°„è¡¨
 static char _kdevice_scancodes[] = {
   VK_NULL, VK_ESCAPE, VK_1, VK_2, VK_3, VK_4, VK_5, VK_6, // 8
   VK_7, VK_8, VK_9, VK_0, VK_SEPARATOR, VK_NULL, VK_BACK, VK_TAB, // 16
