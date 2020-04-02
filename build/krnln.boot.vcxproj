@@ -39,8 +39,8 @@
     <LibraryWPath />
     <SourcePath />
     <ExcludePath />
-    <NMakeBuildCommandLine>%windir%\sysnative\bash.exe -c "cd /mnt/c/Users/Moenya/Desktop/elkernel/; as --32 ./source/$(ProjectName.ToLower())/bootsect.asm -o ./output/$(Configuration.ToLower())/$(ProjectName).obj"</NMakeBuildCommandLine>
-    <NMakeReBuildCommandLine>%windir%\sysnative\bash.exe -c "cd /mnt/c/Users/Moenya/Desktop/elkernel/; as --32 ./source/$(ProjectName.ToLower())/bootsect.asm -o ./output/$(Configuration.ToLower())/$(ProjectName).obj"</NMakeReBuildCommandLine>
+    <NMakeBuildCommandLine>%windir%\sysnative\bash.exe -c "cd /mnt/$(SolutionDir.substring(0,1).tolower())$(SolutionDir.replace("\","/").replace(":","").substring(1))/../; as --32 ./source/$(ProjectName.ToLower())/bootsect.asm -o ./output/$(Configuration.ToLower())/$(ProjectName).obj"</NMakeBuildCommandLine>
+    <NMakeReBuildCommandLine>%windir%\sysnative\bash.exe -c "cd /mnt/$(SolutionDir.substring(0,1).tolower())$(SolutionDir.replace("\","/").replace(":","").substring(1))/../; as --32 ./source/$(ProjectName.ToLower())/bootsect.asm -o ./output/$(Configuration.ToLower())/$(ProjectName).obj"</NMakeReBuildCommandLine>
     <NMakeCleanCommandLine>del $(SolutionDir)\..\output\$(Configuration.ToLower())\$(MSBuildProjectName).obj</NMakeCleanCommandLine>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
