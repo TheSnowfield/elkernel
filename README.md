@@ -1,15 +1,17 @@
-# elKernel
+# elKernel - SnakeGame
 
-#### 計劃用屑語言做一個垃圾内核跑一個貪吃蛇 (草
-#### 也算是作爲一個課題 學習如何製作一個OS
+#### 用屑語言做一個辣鷄内核跑一個貪吃蛇 (草
+#### 也算是作爲一個課題 逐步學習如何製作一個OS
 
 ---
 
 ## 🤔 構建先決條件
   - 需要WSL環境
-  - GCC >= `v8.3.0 (WSL)`
-  - GAS >= `v2.31.1 (WSL)`
+  - gcc >= `v8.3.0 (WSL)`
+  - gas >= `v2.31.1 (WSL)`
+  - objcopy >= `v2.31.1 (WSL)`
   - 易語言 >= `v5.5`
+  - Visual Studio 2017 或更高版本
 
 ## 🐴 構建項目及環境
 ### Boot Stripper 部分
@@ -25,15 +27,15 @@
   4. 編譯將會失敗並殘留一個Win32 COFF文件 請勿刪除該文件
 
 ### Bootable Floppy 部分
-  1. 使用 `Visual Studio 2019` 打開解決方案文件
+  1. 使用 `Visual Studio` 打開解決方案文件
   2. 直接構建
 
 ## 😩 調試環境
-  > 這裏只例舉 qEmu 版本
+  > 這裏只例舉 QEMU 版本
   ```batch
     @echo off
     set PATH=%PATH%;YOUR_QEMU_INSTALLATION
     qemu-system-i386 -gdb tcp::23333 -fda ./elkernel.img
   ```
-  執行批處理文件 啓動GDB 附加即可。<br>
+  執行批處理文件 啓動GDB 附加即可。<br/>
   有關GDB調試方面不再贅述。
