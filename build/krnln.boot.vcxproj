@@ -31,8 +31,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(SolutionDir)\output\$(Configuration.ToLower())\</OutDir>
-    <IntDir>$(SolutionDir)\output\$(Configuration.ToLower())\obj\$(ProjectName)\</IntDir>
+    <OutDir>$(SolutionDir)\..\output\$(Configuration.ToLower())\</OutDir>
+    <IntDir>$(SolutionDir)\..\output\$(Configuration.ToLower())\obj\$(ProjectName)\</IntDir>
     <IncludePath />
     <ReferencePath />
     <LibraryPath />
@@ -41,7 +41,7 @@
     <ExcludePath />
     <NMakeBuildCommandLine>%windir%\sysnative\bash.exe -c "cd /mnt/c/Users/Moenya/Desktop/elkernel/; as --32 ./source/$(ProjectName.ToLower())/bootsect.asm -o ./output/$(Configuration.ToLower())/$(ProjectName).obj"</NMakeBuildCommandLine>
     <NMakeReBuildCommandLine>%windir%\sysnative\bash.exe -c "cd /mnt/c/Users/Moenya/Desktop/elkernel/; as --32 ./source/$(ProjectName.ToLower())/bootsect.asm -o ./output/$(Configuration.ToLower())/$(ProjectName).obj"</NMakeReBuildCommandLine>
-    <NMakeCleanCommandLine>del $(SolutionDir)\output\$(Configuration.ToLower())\$(MSBuildProjectName).obj</NMakeCleanCommandLine>
+    <NMakeCleanCommandLine>del $(SolutionDir)\..\output\$(Configuration.ToLower())\$(MSBuildProjectName).obj</NMakeCleanCommandLine>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>

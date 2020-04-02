@@ -7,31 +7,31 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="source\krnln.core\krnln_fnMod.c" />
-    <ClCompile Include="source\krnln.core\krnln_fnToInt.c" />
-    <ClCompile Include="source\krnln.core\krnl_MCallDllCmd.c" />
-    <ClCompile Include="source\krnln.core\krnl_MCallKrnlLibCmd.c" />
-    <ClCompile Include="source\krnln.core\krnl_MCallLibCmd.c" />
-    <ClCompile Include="source\krnln.core\krnl_MExitProcess.c" />
-    <ClCompile Include="source\krnln.core\krnl_MFree.c" />
-    <ClCompile Include="source\krnln.core\krnl_MGetDllCmdAdr.c" />
-    <ClCompile Include="source\krnln.core\krnl_MLoadBeginWin.c" />
-    <ClCompile Include="source\krnln.core\krnl_MMain.c" />
-    <ClCompile Include="source\krnln.core\krnl_MMalloc.c" />
-    <ClCompile Include="source\krnln.core\krnl_MMallocNoCheck.c" />
-    <ClCompile Include="source\krnln.core\krnl_MMessageLoop.c" />
-    <ClCompile Include="source\krnln.core\krnl_MOtherHelp.c" />
-    <ClCompile Include="source\krnln.core\krnl_MReadProperty.c" />
-    <ClCompile Include="source\krnln.core\krnl_MRealloc.c" />
-    <ClCompile Include="source\krnln.core\krnl_MReportError.c" />
-    <ClCompile Include="source\krnln.core\krnl_MWriteProperty.c" />
-    <ClCompile Include="source\krnln.core\krnl_ProcessNotifyLib.c" />
+    <ClCompile Include="..\source\krnln.core\krnln_fnMod.c" />
+    <ClCompile Include="..\source\krnln.core\krnln_fnToInt.c" />
+    <ClCompile Include="..\source\krnln.core\krnl_MCallDllCmd.c" />
+    <ClCompile Include="..\source\krnln.core\krnl_MCallKrnlLibCmd.c" />
+    <ClCompile Include="..\source\krnln.core\krnl_MCallLibCmd.c" />
+    <ClCompile Include="..\source\krnln.core\krnl_MExitProcess.c" />
+    <ClCompile Include="..\source\krnln.core\krnl_MFree.c" />
+    <ClCompile Include="..\source\krnln.core\krnl_MGetDllCmdAdr.c" />
+    <ClCompile Include="..\source\krnln.core\krnl_MLoadBeginWin.c" />
+    <ClCompile Include="..\source\krnln.core\krnl_MMain.c" />
+    <ClCompile Include="..\source\krnln.core\krnl_MMalloc.c" />
+    <ClCompile Include="..\source\krnln.core\krnl_MMallocNoCheck.c" />
+    <ClCompile Include="..\source\krnln.core\krnl_MMessageLoop.c" />
+    <ClCompile Include="..\source\krnln.core\krnl_MOtherHelp.c" />
+    <ClCompile Include="..\source\krnln.core\krnl_MReadProperty.c" />
+    <ClCompile Include="..\source\krnln.core\krnl_MRealloc.c" />
+    <ClCompile Include="..\source\krnln.core\krnl_MReportError.c" />
+    <ClCompile Include="..\source\krnln.core\krnl_MWriteProperty.c" />
+    <ClCompile Include="..\source\krnln.core\krnl_ProcessNotifyLib.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="source\common\stdint.h" />
-    <ClInclude Include="source\krnln.core\eappinfo.h" />
-    <ClInclude Include="source\krnln.core\elib.h" />
-    <ClInclude Include="source\krnln.core\stdafx.h" />
+    <ClInclude Include="..\source\common\stdint.h" />
+    <ClInclude Include="..\source\krnln.core\eappinfo.h" />
+    <ClInclude Include="..\source\krnln.core\elib.h" />
+    <ClInclude Include="..\source\krnln.core\stdafx.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -42,12 +42,6 @@
     <ProjectName>krnln.core</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
-    <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
@@ -60,9 +54,6 @@
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
   <ImportGroup Label="Shared">
-  </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -80,8 +71,8 @@
     <LibraryWPath />
     <SourcePath />
     <ExcludePath />
-    <OutDir>$(SolutionDir)\output\$(Configuration.ToLower())\</OutDir>
-    <IntDir>$(SolutionDir)\output\$(Configuration.ToLower())\obj\$(ProjectName)\</IntDir>
+    <OutDir>$(SolutionDir)\..\output\$(Configuration.ToLower())\</OutDir>
+    <IntDir>$(SolutionDir)\..\output\$(Configuration.ToLower())\obj\$(ProjectName)\</IntDir>
     <TargetName>krnln.core</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -100,7 +91,7 @@
       <DebugInformationFormat />
       <ExceptionHandling>false</ExceptionHandling>
       <BufferSecurityCheck>false</BufferSecurityCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)\source\common\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\..\source\common\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
     </ClCompile>
     <Link>

@@ -42,8 +42,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(SolutionDir)\output\$(Configuration.ToLower())\</OutDir>
-    <IntDir>$(SolutionDir)\output\$(Configuration.ToLower())\obj\$(ProjectName)\</IntDir>
+    <OutDir>$(SolutionDir)\..\output\$(Configuration.ToLower())\</OutDir>
+    <IntDir>$(SolutionDir)\..\output\$(Configuration.ToLower())\obj\$(ProjectName)\</IntDir>
     <TargetName>krnln.core.downlevel</TargetName>
     <IncludePath />
     <ReferencePath />
@@ -65,7 +65,7 @@
       </SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)\source\common\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\..\source\common\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <BufferSecurityCheck>false</BufferSecurityCheck>
       <ExceptionHandling>false</ExceptionHandling>
       <PrecompiledHeader />
@@ -93,12 +93,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="source\krnln.core.downlevel\kdevice_keyboard.c" />
-    <ClCompile Include="source\krnln.core.downlevel\kisr.c" />
-    <ClCompile Include="source\krnln.core.downlevel\kmemory.c" />
+    <ClCompile Include="..\source\krnln.core.downlevel\kdevice_keyboard.c" />
+    <ClCompile Include="..\source\krnln.core.downlevel\kisr.c" />
+    <ClCompile Include="..\source\krnln.core.downlevel\kmemory.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="source\krnln.core.downlevel\vkcode.h" />
+    <ClInclude Include="..\source\krnln.core.downlevel\vkcode.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
