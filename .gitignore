@@ -9,6 +9,9 @@
 
 # Executable files
 # *.exe
+*.obj
+*.lib
 
 # Others
 *.res
+
