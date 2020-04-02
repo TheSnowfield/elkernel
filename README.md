@@ -7,9 +7,9 @@
 
 ## 🤔 構建先決條件
   - 需要WSL環境
-  - gcc >= `v8.3.0 (WSL)`
-  - gas >= `v2.31.1 (WSL)`
-  - objcopy >= `v2.31.1 (WSL)`
+  - gas >= `v2.31.1 x86_64-linux-gnu (WSL)`
+  - gld >= `v2.31.1 x86_64-linux-gnu (WSL)`
+  - objcopy >= `v2.31.1 x86_64-linux-gnu (WSL)`
   - 易語言 >= `v5.5`
   - Visual Studio 2017 或更高版本
 
@@ -28,7 +28,8 @@
 
 ### Bootable Floppy 部分
   1. 使用 `Visual Studio` 打開解決方案文件
-  2. 直接構建
+  2. 將 `krnln.floppy.mk` 設爲啓動項目
+  3. 直接構建
 
 ## 😩 調試環境
   > 這裏只例舉 QEMU 版本
