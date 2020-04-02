@@ -130,6 +130,7 @@
 
   # 加載全局描述符表
   _func_load_gdt:
+    xchg bx,bx
     lgdt ds:[_GDT_HEADER] # 加載GDT
     mov ax, 0x0000
   ret
