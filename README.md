@@ -16,12 +16,6 @@
   - Visual Studio 2017 或更高版本
 
 ### 🐴 構建項目及環境
-#### Boot Stripper 部分
-  1. 進入 `source/krnln.boot.stripper`
-  2. 使用易語言IDE打開 `stripper.e`
-  3. 使用靜態編譯方式 編譯易代碼到本目錄 
-  4. 編譯成功名爲 `stripper.exe` 請勿刪除該文件
-
 #### Core Main 部分
   1. 進入 `source/krnln.core.main`
   2. 使用易語言IDE打開 `krnln.core.main.e` 
