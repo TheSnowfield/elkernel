@@ -1,0 +1,19 @@
+# Output path
+[Oo]utput/
+
+# Visual Studio files
+.vs/
+
+# EPL files
+*.bak
+*.obj
+*.lib
+*.res
+
+# IDA files
+*.id0
+*.id1
+*.id2
+*.nam
+*.til
+

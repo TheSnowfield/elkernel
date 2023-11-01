@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\source\krnln.core\krnl_MCallDllCmd.c">
+      <Filter>Source\KrnlnCore</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\krnln.core\krnl_MCallKrnlLibCmd.c">
+      <Filter>Source\KrnlnCore</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\krnln.core\krnl_MCallLibCmd.c">
+      <Filter>Source\KrnlnCore</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\krnln.core\krnl_MExitProcess.c">
+      <Filter>Source\KrnlnCore</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\krnln.core\krnl_MFree.c">
+      <Filter>Source\KrnlnCore</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\krnln.core\krnl_MGetDllCmdAdr.c">
+      <Filter>Source\KrnlnCore</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\krnln.core\krnl_MLoadBeginWin.c">
+      <Filter>Source\KrnlnCore</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\krnln.core\krnl_MMain.c">
+      <Filter>Source\KrnlnCore</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\krnln.core\krnl_MMalloc.c">
+      <Filter>Source\KrnlnCore</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\krnln.core\krnl_MMallocNoCheck.c">
+      <Filter>Source\KrnlnCore</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\krnln.core\krnl_MMessageLoop.c">
+      <Filter>Source\KrnlnCore</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\krnln.core\krnl_MOtherHelp.c">
+      <Filter>Source\KrnlnCore</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\krnln.core\krnl_MReadProperty.c">
+      <Filter>Source\KrnlnCore</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\krnln.core\krnl_MRealloc.c">
+      <Filter>Source\KrnlnCore</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\krnln.core\krnl_MReportError.c">
+      <Filter>Source\KrnlnCore</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\krnln.core\krnl_MWriteProperty.c">
+      <Filter>Source\KrnlnCore</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\krnln.core\krnl_ProcessNotifyLib.c">
+      <Filter>Source\KrnlnCore</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\krnln.core\krnln_fnMod.c">
+      <Filter>Source\KrnlnExt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\krnln.core\krnln_fnToInt.c">
+      <Filter>Source\KrnlnExt</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header">
+      <UniqueIdentifier>{e166c113-dceb-47ed-b1b0-61a08b89a53e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{f14690d0-2acb-476d-94f2-5d6437bbc4a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\KrnlnCore">
+      <UniqueIdentifier>{d8412c81-5ba3-4ea3-acfd-fc4dba2c7370}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\KrnlnExt">
+      <UniqueIdentifier>{bdb1564f-0e2b-42ef-a5bc-bffcef240f68}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\source\krnln.core\eappinfo.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\krnln.core\elib.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\krnln.core\stdafx.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\common\stdint.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

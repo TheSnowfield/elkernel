@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29613.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "krnln.boot", "krnln.boot.vcxproj", "{12513B41-4837-49C3-BCB8-DD09A1432074}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "krnln.core", "krnln.core.vcxproj", "{772A30A4-37A7-440B-9052-3966FAFDA413}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "krnln.core.main", "krnln.core.main.vcxproj", "{110E564F-6608-4EB1-A5A6-4F562E712182}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "krnln.core.downlevel", "krnln.core.downlevel.vcxproj", "{FBAF3892-6BF0-4372-B76B-D029608FD17C}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "krnln.floppy.mk", "krnln.floppy.mk.vcxproj", "{C3D08CDE-C611-480C-A9BB-2DA8EDAA2AD5}"
+	ProjectSection(ProjectDependencies) = postProject
+		{12513B41-4837-49C3-BCB8-DD09A1432074} = {12513B41-4837-49C3-BCB8-DD09A1432074}
+		{110E564F-6608-4EB1-A5A6-4F562E712182} = {110E564F-6608-4EB1-A5A6-4F562E712182}
+		{FBAF3892-6BF0-4372-B76B-D029608FD17C} = {FBAF3892-6BF0-4372-B76B-D029608FD17C}
+		{772A30A4-37A7-440B-9052-3966FAFDA413} = {772A30A4-37A7-440B-9052-3966FAFDA413}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{772A30A4-37A7-440B-9052-3966FAFDA413}.Release|x86.ActiveCfg = Release|Win32
+		{772A30A4-37A7-440B-9052-3966FAFDA413}.Release|x86.Build.0 = Release|Win32
+		{12513B41-4837-49C3-BCB8-DD09A1432074}.Release|x86.ActiveCfg = Release|Win32
+		{12513B41-4837-49C3-BCB8-DD09A1432074}.Release|x86.Build.0 = Release|Win32
+		{C3D08CDE-C611-480C-A9BB-2DA8EDAA2AD5}.Release|x86.ActiveCfg = Release|Win32
+		{C3D08CDE-C611-480C-A9BB-2DA8EDAA2AD5}.Release|x86.Build.0 = Release|Win32
+		{FBAF3892-6BF0-4372-B76B-D029608FD17C}.Release|x86.ActiveCfg = Release|Win32
+		{FBAF3892-6BF0-4372-B76B-D029608FD17C}.Release|x86.Build.0 = Release|Win32
+		{110E564F-6608-4EB1-A5A6-4F562E712182}.Release|x86.ActiveCfg = Release|Win32
+		{110E564F-6608-4EB1-A5A6-4F562E712182}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C8CD896C-25DB-49E3-94C9-B5817A5E47F0}
+	EndGlobalSection
+EndGlobal
