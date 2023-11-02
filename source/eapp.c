@@ -28,7 +28,7 @@ int __cdecl krnl_MMain() {
     mov edx, eax
 
     finit
-    
+
     // bochs 魔術斷點
     xchg bx, bx
 
@@ -38,9 +38,6 @@ int __cdecl krnl_MMain() {
     // 所以我們先調用 ecode
     push 0x01         // 0x01 調用原因: 初始化
     call __eapp_info.lpfnEcode
-
-    // bochs 魔術斷點
-    xchg bx, bx
 
     // 取得 EStartup 的地址 (跳過13字節)
     mov eax, EStartup
