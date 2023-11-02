@@ -165,7 +165,7 @@
   _msg_load:    .asciz "== Hello World! ==\r\n"
   _msg_ldisk:   .asciz "Loading elKernel..."
   _msg_lgdt:    .asciz "Loading GDT...     "
-  _msg_entrypm: .asciz "Entry into Protected Mode..."
+  _msg_entrypm: .asciz "Entering protected mode..."
 
 # 全局描述符表
 .org 0x1D0

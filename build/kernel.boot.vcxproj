@@ -6,11 +6,15 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\source\startup.asm" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <ProjectGuid>{12513B41-4837-49C3-BCB8-DD09A1432074}</ProjectGuid>
     <RootNamespace>krnlnboot</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>kernel.boot</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -39,8 +43,8 @@
     <LibraryWPath />
     <SourcePath />
     <ExcludePath />
-    <NMakeBuildCommandLine>bash.exe -c "cd /mnt/$(SolutionDir.substring(0,1).tolower())$(SolutionDir.replace("\","/").replace(":","").substring(1))/../; as --32 ./source/$(ProjectName.ToLower())/bootsect.asm -o ./output/$(Configuration.ToLower())/$(ProjectName).obj"</NMakeBuildCommandLine>
-    <NMakeReBuildCommandLine>bash.exe -c "cd /mnt/$(SolutionDir.substring(0,1).tolower())$(SolutionDir.replace("\","/").replace(":","").substring(1))/../; as --32 ./source/$(ProjectName.ToLower())/bootsect.asm -o ./output/$(Configuration.ToLower())/$(ProjectName).obj"</NMakeReBuildCommandLine>
+    <NMakeBuildCommandLine>bash.exe -c "cd /mnt/$(SolutionDir.substring(0,1).tolower())$(SolutionDir.replace("\","/").replace(":","").substring(1))/../; as --32 ./source/startup.asm -o ./output/$(Configuration.ToLower())/$(ProjectName).obj"</NMakeBuildCommandLine>
+    <NMakeReBuildCommandLine>bash.exe -c "cd /mnt/$(SolutionDir.substring(0,1).tolower())$(SolutionDir.replace("\","/").replace(":","").substring(1))/../; as --32 ./source/startup.asm -o ./output/$(Configuration.ToLower())/$(ProjectName).obj"</NMakeReBuildCommandLine>
     <NMakeCleanCommandLine>del $(SolutionDir)\..\output\$(Configuration.ToLower())\$(MSBuildProjectName).obj</NMakeCleanCommandLine>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -59,9 +63,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <None Include="source\krnln.boot\bootsect.asm" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

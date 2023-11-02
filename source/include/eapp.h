@@ -1,4 +1,5 @@
-﻿#pragma once
+﻿#ifndef __EAPP_H
+#define __EAPP_H
 
 typedef struct {
   uint32_t dwLibFormatVer;
@@ -33,3 +34,10 @@ typedef EAPPINFO* LPEAPPINFO;
 typedef const EAPPINFO* LPCEAPPINFO;
 
 extern const EAPPINFO __eapp_info;
+
+#define KRNLN_KMEMORY_NOTIFY_MALLOC  0x00
+#define KRNLN_KMEMORY_NOTIFY_REALLOC 0x01
+#define KRNLN_KMEMORY_NOTIFY_FREEMEM 0x02
+typedef uint32_t (__stdcall EAPP_MEMNOTIFUNC) (uint32_t uNotifyType, uint32_t arg0, uint32_t arg1);
+
+#endif /* __EAPP_H */

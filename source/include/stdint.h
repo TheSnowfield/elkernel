@@ -1,9 +1,9 @@
-﻿#pragma once
-#define _STDINT
+﻿#ifndef _STDINT_H
+#define _STDINT_H
 
 #define NULL ((void*)0)
 
-typedef signed char        int8_t , INT8;
+typedef signed char        int8_t, INT8;
 typedef short              int16_t, SHORT, INT16;
 typedef int                int32_t, bool, INT, INT32;
 typedef long               LONG, BOOL, * LPBOOL, * PBOOL, LONG_PTR, * PLONG_PTR;
@@ -118,3 +118,5 @@ typedef double DOUBLE, DATE, * PDATE;
 
 #define INTMAX_C(x)  INT64_C(x)
 #define UINTMAX_C(x) UINT64_C(x)
+
+#endif /*_STDINT_H */

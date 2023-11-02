@@ -8,9 +8,9 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
-    <ProjectGuid>{110E564F-6608-4EB1-A5A6-4F562E712182}</ProjectGuid>
+    <ProjectGuid>{C3D08CDE-C611-480C-A9BB-2DA8EDAA2AD5}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <ProjectName>krnln.core.main</ProjectName>
+    <ProjectName>floppy.mk</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -39,11 +39,11 @@
     <LibraryWPath />
     <SourcePath />
     <ExcludePath />
-    <NMakeBuildCommandLine>copy $(SolutionDir)\..\source\$(MSBuildProjectName)\$(MSBuildProjectName).obj $(SolutionDir)\..\output\$(Configuration.ToLower())\$(MSBuildProjectName).obj</NMakeBuildCommandLine>
-    <NMakeReBuildCommandLine>copy $(SolutionDir)\..\source\$(MSBuildProjectName)\$(MSBuildProjectName).obj $(SolutionDir)\..\output\$(Configuration.ToLower())\$(MSBuildProjectName).obj</NMakeReBuildCommandLine>
+    <NMakeBuildCommandLine> %WINDIR%\System32\bash -c "cd /mnt/$(SolutionDir.substring(0,1).tolower())$(SolutionDir.replace("\","/").replace(":","").substring(1))/../output/$(Configuration.ToLower())/; objcopy kernel.obj --image-base=0x0000; ld -m elf_i386 kernel.boot.obj kernel.obj kernel.loader.lib -e _entry -Ttext 0x7c00 -o floppy; objcopy -O binary floppy; dd if=floppy of=elkernel.img bs=1474560 count=1; rm floppy"</NMakeBuildCommandLine>
+    <NMakeReBuildCommandLine> %WINDIR%\System32\bash -c "cd /mnt/$(SolutionDir.substring(0,1).tolower())$(SolutionDir.replace("\","/").replace(":","").substring(1))/../output/$(Configuration.ToLower())/; objcopy kernel.obj --image-base=0x0000; ld -m elf_i386 kernel.boot.obj kernel.obj kernel.loader.lib -e _entry -Ttext 0x7c00 -o floppy; objcopy -O binary floppy; dd if=floppy of=elkernel.img bs=1474560 count=1; rm floppy"</NMakeReBuildCommandLine>
     <OutDir>$(SolutionDir)\..\output\$(Configuration.ToLower())\</OutDir>
     <IntDir>$(SolutionDir)\..\output\$(Configuration.ToLower())\obj\$(ProjectName)\</IntDir>
-    <NMakeCleanCommandLine>del $(SolutionDir)\..\output\$(Configuration.ToLower())\$(MSBuildProjectName).obj</NMakeCleanCommandLine>
+    <NMakeCleanCommandLine>del $(SolutionDir)\..\output\$(Configuration.ToLower())\elkernel.img</NMakeCleanCommandLine>
   </PropertyGroup>
   <ItemDefinitionGroup>
   </ItemDefinitionGroup>
