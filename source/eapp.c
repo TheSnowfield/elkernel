@@ -103,6 +103,13 @@ void* __cdecl krnl_MMalloc(uint32_t uBytes) {
 }
 
 /**
+ *  @brief 申請内存 (不檢查)
+*/
+void* __cdecl krnl_MMallocNoCheck(uint32_t uBytes) {
+  return krnl_MMalloc(uBytes);
+}
+
+/**
  *  @brief 重新分配内存
 */
 void* __cdecl krnl_MRealloc(void* lpMemory, uint32_t uBytes) {
@@ -116,13 +123,6 @@ void* __cdecl krnl_MRealloc(void* lpMemory, uint32_t uBytes) {
     KRNLN_KMEMORY_NOTIFY_REALLOC, (uint32_t)lpMemory, uBytes
   );
   return lpMemoryNew;
-}
-
-/**
- *  @brief 申請内存 (不檢查)
-*/
-void* __cdecl krnl_MMallocNoCheck(uint32_t uBytes) {
-  return NULL;
 }
 
 /**
@@ -154,21 +154,55 @@ void __cdecl krnln_fnMod(PMDATA_INF pRetData, UINT32 uArgCount, PMDATA_INF pArgI
  *  返回包含于文本内的整数值，文本中是一个适当类型的数值，支持全角书写方式。本命令也可用作将其他类型的数据转换为整数。本命令为初级命令。
  *  参数<1>的名称为“待转换的文本或数值”，类型为“通用型（all）”。
 */
-void __cdecl krnln_fnToInt(PMDATA_INF pRetData, UINT32 uArgCount, PMDATA_INF pArgInf) {
+INT __cdecl krnln_fnToInt(PMDATA_INF pRetData, UINT32 uArgCount, PMDATA_INF pArgInf) {
   switch (pArgInf->m_dtDataType) {
-    case SDT_BOOL:
-    case SDT_INT:
+
+    case SDT_BYTE:
+      return pArgInf->m_byte;
+
     case SDT_SHORT:
+      return pArgInf->m_short;
+
+    case SDT_INT:
+    case SDT_BOOL:
     case SDT_SUB_PTR:
-      pRetData->m_int = pArgInf->m_int; 
-      return;
+      return pArgInf->m_int;
+
+    case SDT_DOUBLE:
+      return (INT)pArgInf->m_double;
+
+    case SDT_INT64:
+      return (INT)pArgInf->m_int64;
+  }
+}
+
+/**
+ *  @brief 調用支持庫内命令
+*/
+__declspec(naked) krnl_MCallKrnlLibCmd() { 
+  __asm {
+    lea     eax, [esp + 8]
+    sub     esp, 12
+    push    eax
+    push    dword ptr[esp + 20]
+    xor     eax, eax
+    mov     [esp + 8], eax
+    mov     [esp + 12], eax
+    mov     [esp + 16], eax
+    lea     edx, [esp + 8]
+    push    edx
+    call    ebx
+    mov     eax, [esp + 12]
+    mov     edx, [esp + 16]
+    mov     ecx, [esp + 20]
+    add     esp, 24
+    retn
   }
 }
 
 #define KRNLN_DUMMY_SYMBOL_NAKED(name) __declspec(naked) name() { __asm { ret }; }
 #define KRNLN_DUMMY_SYMBOL_STDCALL(name, arg) void __stdcall name##arg { return; }
 KRNLN_DUMMY_SYMBOL_NAKED(krnl_MCallDllCmd);      // 調用外部DLL命令
-KRNLN_DUMMY_SYMBOL_NAKED(krnl_MCallKrnlLibCmd);  // 調用支持庫内命令
 KRNLN_DUMMY_SYMBOL_NAKED(krnl_MCallLibCmd);      // 調用核心庫除外的支持庫函數
 KRNLN_DUMMY_SYMBOL_NAKED(krnln_MGetDllCmdAdr);   // 獲取外部DLL命令地址
 KRNLN_DUMMY_SYMBOL_NAKED(krnl_MExitProcess);     // 程序結束 退出進程
