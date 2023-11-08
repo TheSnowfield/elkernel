@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <ProjectGuid>{B6E7C485-57A8-4AA6-80B8-0357DCCB390C}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectName>hardrive.mk</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Makefile</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <NMakeOutput>
+    </NMakeOutput>
+    <NMakePreprocessorDefinitions>
+    </NMakePreprocessorDefinitions>
+    <ExecutablePath />
+    <IncludePath />
+    <ReferencePath />
+    <LibraryPath />
+    <LibraryWPath />
+    <SourcePath />
+    <ExcludePath />
+    <NMakeBuildCommandLine>D:\qemu\qemu-img convert -O vmdk "$(SolutionDir.substring(0,1))$(SolutionDir.substring(1))..\output\$(Configuration.ToLower())\elkernel.img" "$(SolutionDir.substring(0,1))$(SolutionDir.substring(1))..\output\$(Configuration.ToLower())\elkernel.vmdk"</NMakeBuildCommandLine>
+    <NMakeReBuildCommandLine>D:\qemu\qemu-img convert -O vmdk "$(SolutionDir.substring(0,1))$(SolutionDir.substring(1))..\output\$(Configuration.ToLower())\elkernel.img" "$(SolutionDir.substring(0,1))$(SolutionDir.substring(1))..\output\$(Configuration.ToLower())\elkernel.vmdk"</NMakeReBuildCommandLine>
+    <OutDir>$(SolutionDir)\..\output\$(Configuration.ToLower())\</OutDir>
+    <IntDir>$(SolutionDir)\..\output\$(Configuration.ToLower())\obj\$(ProjectName)\</IntDir>
+    <NMakeCleanCommandLine>del $(SolutionDir)\..\output\$(Configuration.ToLower())\elkernel.vmdk</NMakeCleanCommandLine>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

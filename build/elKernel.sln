@@ -13,6 +13,20 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "floppy.mk", "floppy.mk.vcxp
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "kernel.boot", "kernel.boot.vcxproj", "{12513B41-4837-49C3-BCB8-DD09A1432074}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "hardrive.mk", "hardrive.mk.vcxproj", "{B6E7C485-57A8-4AA6-80B8-0357DCCB390C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{12513B41-4837-49C3-BCB8-DD09A1432074} = {12513B41-4837-49C3-BCB8-DD09A1432074}
+		{772A30A4-37A7-440B-9052-3966FAFDA413} = {772A30A4-37A7-440B-9052-3966FAFDA413}
+		{C3D08CDE-C611-480C-A9BB-2DA8EDAA2AD5} = {C3D08CDE-C611-480C-A9BB-2DA8EDAA2AD5}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "iso.mk", "iso.mk.vcxproj", "{03D16D8B-792E-43C4-929D-DC22C39824F5}"
+	ProjectSection(ProjectDependencies) = postProject
+		{12513B41-4837-49C3-BCB8-DD09A1432074} = {12513B41-4837-49C3-BCB8-DD09A1432074}
+		{772A30A4-37A7-440B-9052-3966FAFDA413} = {772A30A4-37A7-440B-9052-3966FAFDA413}
+		{C3D08CDE-C611-480C-A9BB-2DA8EDAA2AD5} = {C3D08CDE-C611-480C-A9BB-2DA8EDAA2AD5}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Release|x86 = Release|x86
@@ -24,6 +38,10 @@ Global
 		{C3D08CDE-C611-480C-A9BB-2DA8EDAA2AD5}.Release|x86.Build.0 = Release|Win32
 		{12513B41-4837-49C3-BCB8-DD09A1432074}.Release|x86.ActiveCfg = Release|Win32
 		{12513B41-4837-49C3-BCB8-DD09A1432074}.Release|x86.Build.0 = Release|Win32
+		{B6E7C485-57A8-4AA6-80B8-0357DCCB390C}.Release|x86.ActiveCfg = Release|Win32
+		{B6E7C485-57A8-4AA6-80B8-0357DCCB390C}.Release|x86.Build.0 = Release|Win32
+		{03D16D8B-792E-43C4-929D-DC22C39824F5}.Release|x86.ActiveCfg = Release|Win32
+		{03D16D8B-792E-43C4-929D-DC22C39824F5}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

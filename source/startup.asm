@@ -29,9 +29,13 @@
   # 加載程序主體部分
   lea ax, _msg_ldisk
   call _func_print_str2
-    call _func_disk_read
+    call _func_floppy_read
+    cmp ax, 0x0000
+    jz _flag_load_succ
+    call _func_hdd_read
     cmp ax, 0x0000
     jnz _flag_e
+  _flag_load_succ:
   lea ax, _msg_ok
   call _func_print_str2
 
@@ -109,7 +113,7 @@
 
   # 將程序加載到内存
   # 返回 ax 加載是否成功
-  _func_disk_read:
+  _func_floppy_read:
     mov ax, KRNLNBOOT # 中斷參數 緩衝區
     mov es, ax
     mov ah, 0x02      # 中斷函數
@@ -126,6 +130,25 @@
     xor ax, ax        # 清空寄存器 返回成功
     
     _flag_f:
+  ret
+
+  _func_hdd_read:
+    mov ax, KRNLNBOOT # 中斷參數 緩衝區
+    mov es, ax
+    mov ah, 0x02      # 中斷函數
+    mov bx, 0x0000    # 中斷參數 緩衝區偏移
+    mov al, 0x40      # 中斷參數 讀取扇區數
+    mov ch, 0x00      # 中斷參數 柱面號
+    mov cl, 0x02      # 中斷參數 扇區號
+    mov dh, 0x00      # 中斷參數 磁頭號
+    mov dl, 0x80      # 中斷參數 驅動器號
+
+    int 0x13          # 調用中斷
+    cmp ah, 0x00      # 是否成功
+    jnz _flag_g
+    xor ax, ax        # 清空寄存器 返回成功
+    
+    _flag_g:
   ret
 
   # 加載全局描述符表
