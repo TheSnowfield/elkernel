@@ -147,6 +147,9 @@ INT __cdecl krnln_fnToInt(PMDATA_INF pRetData, UINT32 uArgCount, PMDATA_INF pArg
     case SDT_SUB_PTR:
       return pArgInf->m_int;
 
+    case SDT_FLOAT:
+      return (INT)pArgInf->m_float;
+
     case SDT_DOUBLE:
       return (INT)pArgInf->m_double;
 
