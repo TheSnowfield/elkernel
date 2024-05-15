@@ -1,7 +1,12 @@
 # elKernel - SnakeGame
 
-#### 用屑語言做一個辣鷄内核跑一個貪吃蛇 (草
-#### 也算是作爲一個課題 逐步學習如何製作一個OS
+已在此基礎上進行大規模修改。請移步至
+[https://github.com/TheSnowfield/elkernel](https://github.com/TheSnowfield/elkernel)  
+
+(> w <)---------------
+
+**用屑語言做一個辣鷄内核跑一個貪吃蛇 (草**  
+**也算是作爲一個課題 逐步學習如何製作一個OS** 
 
 ![Snake](image/snake.gif)
 
