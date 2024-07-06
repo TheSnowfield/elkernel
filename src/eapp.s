@@ -25,10 +25,6 @@
 .global _krnl_ProcessNotifyLib
 
 _krnl_MMain:
-  push ebp
-  mov ebp, esp
-  push ebx
-
   mov ax, 0x0010
   mov ds, ax
   mov gs, ax
