@@ -25,6 +25,10 @@
 .global _krnl_ProcessNotifyLib
 
 _krnl_MMain:
+  push ebp
+  mov ebp, esp
+  push ebx
+
   mov ax, 0x0010
   mov ds, ax
   mov gs, ax
@@ -50,7 +54,7 @@ _krnl_MMain:
   call _krnl_MMain_eappinfo_ecode
 
   # 取得 _EStartup 的地址 (跳過13字節)
-  mov eax, _EStartup
+  mov eax, offset _EStartup
   add eax, 13
 
     # 判斷是否是 CALL 指令
@@ -59,7 +63,7 @@ _krnl_MMain:
     jne endinit
     
     # 調用易語言的 init array
-    mov ebx, [eax+1]
+    mov ebx, dword ptr [eax+1]
     add ebx, eax
     add ebx, 5
     call ebx
@@ -77,85 +81,64 @@ _krnl_MMain:
 
 
 _krnl_MMSetCallback:
-  push ebp
-  mov ebp, esp
-  mov eax, [ebp + 8]
+  mov eax, [esp + 4]
   mov _MemoryCallback, eax
-  pop ebp
   ret 4
 
 _krnl_MMalloc:
-  push ebp
-  mov ebp, esp
-  mov eax, _MemoryCallback
+  mov eax, dword ptr _MemoryCallback
   test eax, eax
   jnz _krnl_MMalloc_not_zero
-    mov eax, 0
-    pop ebp
     ret
   _krnl_MMalloc_not_zero:
     push 0          # arg1
-    push [ebp + 8]  # arg0
+    push [esp + 8]  # arg0
     push 0          # uNotifyType
     call eax
-
-  pop ebp
   ret
 
 _krnl_MMallocNoCheck:
   jmp _krnl_MMalloc
 
 _krnl_MFree:
-  push ebp
-  mov ebp, esp
-  mov eax, _MemoryCallback
+  mov eax, dword ptr _MemoryCallback
   test eax, eax
-  jnz _krnl_MFree_not_zero
-    mov eax, 0
-    pop ebp
+  jz _krnl_MFree_not_zero
     ret
   _krnl_MFree_not_zero:
     push 0          # arg1
-    push [ebp + 8]  # arg0
+    push [esp + 8]  # arg0
     push 2          # uNotifyType
     call eax
-
-  pop ebp
   ret
 
 _krnl_MRealloc:
-  push ebp
-  mov ebp, esp
-  mov eax, _MemoryCallback
+  mov eax, dword ptr _MemoryCallback
   test eax, eax
   jnz _krnl_MRealloc_not_zero
-    mov eax, 0
-    pop ebp
     ret
   _krnl_MRealloc_not_zero:
-    push [ebp + 12]  # arg1
-    push [ebp + 8]   # arg0
+    push dword ptr [esp + 8]   # arg1
+    push dword ptr [esp + 8]   # arg0
     push 1           # uNotifyType
     call eax
-
-  pop ebp
   ret
 
 _krnl_MCallKrnlLibCmd:
-  lea eax, [esp + 8]
+  lea eax, dword ptr [esp + 8]
   sub esp, 12
   push eax
   push dword ptr[esp + 20]
   xor eax, eax
-  mov [esp + 8], eax
-  mov [esp + 12], eax
-  mov [esp + 16], eax
-  lea edx, [esp + 8]
+  mov dword ptr [esp + 8], eax
+  mov dword ptr [esp + 12], eax
+  mov dword ptr [esp + 16], eax
+  lea edx, dword ptr [esp + 8]
   push edx
   call ebx
-  mov eax, [esp + 12]
-  mov edx, [esp + 16]
-  mov ecx, [esp + 20]
+  mov eax, dword ptr [esp + 12]
+  mov edx, dword ptr [esp + 16]
+  mov ecx, dword ptr [esp + 20]
   add esp, 24
   ret
 
@@ -188,6 +171,7 @@ _krnl_MReportError:     # 報告錯誤 目前沒什麽用
 
 _krnl_MWriteProperty:   # 寫窗口屬性字段 不用窗口組件沒什麽用
   ret
+
 _krnl_ProcessNotifyLib: # 核心支持庫通知回調函數 沒什麽用
   ret 12
 
