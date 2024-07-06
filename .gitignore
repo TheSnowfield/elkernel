@@ -1,8 +1,11 @@
 # Output path
 [Oo]utput/
+[Bb]uild/
 
 # Visual Studio files
 .vs/
+.vscode/
+.win32/
 
 # EPL files
 *.bak
