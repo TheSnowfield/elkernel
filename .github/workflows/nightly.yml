@@ -12,10 +12,29 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: thesnowfield/el-buildtool@v1
+
+      - name: Compile elkernel.obj
+        uses: thesnowfield/el-buildtool@v1
         with:
           file: src/elkernel.e
           opt_fast_array: true
           opt_stack_check: false
           opt_deadloop_check: false
 
+      - name: Configure CMake
+        uses: threeal/cmake-action@main
+        with:
+          run-build: false
+          build-dir: build
+      
+      - name: Build Images
+        run: |
+          cd build && make
+          ls -al
+
+      - uses: actions/upload-artifact@v4
+        name: Upload Artifact
+        with:
+            name: elkernel-nightly
+            path: |
+              build/elkernel*
