@@ -1,0 +1,21 @@
+name: Nightly Build
+
+on:
+  push:
+    branches: [ main, ci ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+
+  compile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: thesnowfield/el-buildtool@v1
+        with:
+          file: src/elkernel.e
+          opt_fast_array: true
+          opt_stack_check: false
+          opt_deadloop_check: false
+

@@ -6,6 +6,7 @@ An x86 toy kernel implementation written in EPL.
   - x86 gcc
   - cmake
   - python3
+  - docker
   - 易語言 >= `v5.1`
 
 ### Build Steps
