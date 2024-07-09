@@ -10,9 +10,10 @@ set(ELKERNEL_BUILD_DIR ${CMAKE_CURRENT_BINARY_DIR})
 set(ELKERNEL_SOURCE_DIR ${ELKERNEL_ROOT_DIR}/src)
 set(ELKERNEL_TARGET_DIR ${ELKERNEL_ROOT_DIR}/target)
 set(ELKERNEL_TOOL_DIR ${ELKERNEL_ROOT_DIR}/tools)
+set(ELKERNEL_BOOT_DIR ${ELKERNEL_ROOT_DIR}/boot)
 
 # legacy bootloader
-include(${ELKERNEL_ROOT_DIR}/legacy/boot.cmake)
+include(${ELKERNEL_BOOT_DIR}/boot.cmake)
 
 # elkernel
 include(${ELKERNEL_SOURCE_DIR}/elkernel.cmake)

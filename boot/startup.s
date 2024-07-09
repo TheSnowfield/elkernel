@@ -2,9 +2,11 @@
 .equ BOOTSTART, 0x07c0
 .equ KRNLNBOOT, 0x07e0
 
+.global _start
+
 .code16
+
 .text
-  .global _start
   _start:
 
   # 清除寄存器
@@ -153,8 +155,8 @@
   # 調用上層代碼
   _func_main:
     jmp $
-    @ jmp 0x08:_krnl_MMain  # 超級遠跳轉
-    @                       # 一去不復返 2333
+    # jmp 0x08:_krnl_MMain  # 超級遠跳轉
+    #                       # 一去不復返 2333
   ret
 
 # 保存的字串
@@ -206,8 +208,3 @@
 
     _GDT_VIDEO:
   _GDT_ENTRIES_END:
-
-# 可引導扇區標識符
-# 填充空白區域對齊扇區
-.org 0x1FE
-  .2byte 0xAA55
