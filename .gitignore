@@ -1,13 +1,9 @@
-# Output path
-[Oo]utput/
-[Bb]uild/
-
-# Visual Studio files
 .vs/
 .vscode/
 .win32/
+.build/
 
-# EPL files
+# EPL or binary files
 *.bak
 *.obj
 *.lib
@@ -19,4 +15,3 @@
 *.id2
 *.nam
 *.til
-
