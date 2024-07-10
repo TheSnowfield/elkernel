@@ -2,11 +2,10 @@
 .equ BOOTSTART, 0x07c0
 .equ KRNLNBOOT, 0x07e0
 
-.global _start
-
-.code16
-
 .text
+  .global _start
+  .code16
+
   _start:
 
   # 清除寄存器
@@ -33,8 +32,6 @@
     cmp ax, 0x0000
     jnz _flag_e
   _flag_load_succ:
-  lea ax, _msg_ok
-  call _func_print_str
 
   # 加載全局描述符表
   lea ax, _msg_lgdt
@@ -42,8 +39,6 @@
     call _func_load_gdt
     cmp ax, 0x0000
     jnz _flag_e
-  lea ax, _msg_ok
-  call _func_print_str
 
   # 可以進入保護模式啦 萬歲
   lea ax, _msg_entrypm
@@ -159,52 +154,52 @@
     #                       # 一去不復返 2333
   ret
 
+
 # 保存的字串
-.org 0x150
-  _msg_ok:      .asciz " OK!\r\n"
-  _msg_failed:  .asciz " FAILED!\r\n"
+.data
+  _msg_failed:  .asciz " FAILED!"
   _msg_ldisk:   .asciz "Loading elKernel..."
   _msg_lgdt:    .asciz "Loading GDT...     "
   _msg_entrypm: .asciz "Entering protected mode..."
 
 # 全局描述符表
-.org 0x1D0
-  _GDT_HEADER:
-    .2byte _GDT_ENTRIES_END - _GDT_ENTRIES  # GDT Size
-    .4byte _GDT_ENTRIES                     # GDT Base
+.align 4
+_GDT_HEADER:
+  .2byte _GDT_ENTRIES_END - _GDT_ENTRIES  # GDT Size
+  .4byte _GDT_ENTRIES                     # GDT Base
 
-  _GDT_ENTRIES:
-    _GDT_NULL:
-      .2byte 0x0000   # limit low
-      .2byte 0x0000   # base low
-      .byte  0x00     # base middle
-      .byte  0x00     # access type
-      .byte  0x00     # limit high, flags
-      .byte  0x00     # base high
+_GDT_ENTRIES:
+  _GDT_NULL:
+    .2byte 0x0000   # limit low
+    .2byte 0x0000   # base low
+    .byte  0x00     # base middle
+    .byte  0x00     # access type
+    .byte  0x00     # limit high, flags
+    .byte  0x00     # base high
 
-    _GDT_CODE32:
-      # Base  0x00000000
-      # Limit 0x000FFFFF
-      # Access 1(Pr) 00(Privl) 1(S) 1(Ex) 0(DC) 1(RW) 1(Ac)
-      # Flag   1(Gr) 1(Sz) 0(Null) 0(Null)
-      .2byte 0xFFFF   # limit low
-      .2byte 0x0000   # base low
-      .byte  0x00     # base middle
-      .byte  0x9A     # access type
-      .byte  0xCF     # limit high, flags
-      .byte  0x00     # base high
+  _GDT_CODE32:
+    # Base  0x00000000
+    # Limit 0x000FFFFF
+    # Access 1(Pr) 00(Privl) 1(S) 1(Ex) 0(DC) 1(RW) 1(Ac)
+    # Flag   1(Gr) 1(Sz) 0(Null) 0(Null)
+    .2byte 0xFFFF   # limit low
+    .2byte 0x0000   # base low
+    .byte  0x00     # base middle
+    .byte  0x9A     # access type
+    .byte  0xCF     # limit high, flags
+    .byte  0x00     # base high
 
-    _GDT_DATA:
-      # Base  0x00000000
-      # Limit 0x000FFFFF
-      # Access 1(Pr) 00(Privl) 1(S) 0(Ex) 0(DC) 1(RW) 1(Ac)
-      # Flag   1(Gr) 1(Sz) 0(Null) 0(Null)
-      .2byte 0xFFFF   # limit low
-      .2byte 0x0000   # base low
-      .byte  0x00     # base middle
-      .byte  0x93     # access type
-      .byte  0xCF     # limit high, flags
-      .byte  0x00     # base high
+  _GDT_DATA:
+    # Base  0x00000000
+    # Limit 0x000FFFFF
+    # Access 1(Pr) 00(Privl) 1(S) 0(Ex) 0(DC) 1(RW) 1(Ac)
+    # Flag   1(Gr) 1(Sz) 0(Null) 0(Null)
+    .2byte 0xFFFF   # limit low
+    .2byte 0x0000   # base low
+    .byte  0x00     # base middle
+    .byte  0x93     # access type
+    .byte  0xCF     # limit high, flags
+    .byte  0x00     # base high
 
-    _GDT_VIDEO:
-  _GDT_ENTRIES_END:
+  _GDT_VIDEO:
+_GDT_ENTRIES_END:
