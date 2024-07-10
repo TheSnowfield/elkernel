@@ -1,9 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
 
-project(elf)
-set(CMAKE_C_STANDARD 11)
-add_compile_options(-m32 -masm=intel -nostdlib -nodefaultlibs)
-
 # useful directories
 set(ELKERNEL_ROOT_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 set(ELKERNEL_BUILD_DIR ${CMAKE_CURRENT_BINARY_DIR})
@@ -12,11 +8,18 @@ set(ELKERNEL_TARGET_DIR ${ELKERNEL_ROOT_DIR}/target)
 set(ELKERNEL_TOOL_DIR ${ELKERNEL_ROOT_DIR}/tools)
 set(ELKERNEL_BOOT_DIR ${ELKERNEL_ROOT_DIR}/boot)
 
-# legacy bootloader
+# bootloader
 include(${ELKERNEL_BOOT_DIR}/boot.cmake)
 
 # elkernel
 include(${ELKERNEL_SOURCE_DIR}/elkernel.cmake)
+
+# make elfOS
+project(elf)
+add_custom_target(${PROJECT_NAME} ALL
+  DEPENDS boot elkernel
+  COMMENT "Run post builds"
+)
 
 # post builds
 set(_POST_BUILDS "")
@@ -24,4 +27,3 @@ set(_POST_BUILDS "")
 foreach(POST_BUILD_FILE IN LISTS _POST_BUILDS)
   include(${POST_BUILD_FILE})
 endforeach()
-

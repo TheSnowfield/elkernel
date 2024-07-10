@@ -13,14 +13,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Compile elkernel.obj
-        uses: thesnowfield/el-buildtool@v1
-        with:
-          file: src/elkernel.e
-          opt_fast_array: true
-          opt_stack_check: false
-          opt_deadloop_check: false
-
       - name: Configure CMake
         uses: threeal/cmake-action@main
         with:
@@ -37,4 +29,4 @@ jobs:
         with:
             name: elkernel-nightly
             path: |
-              build/elkernel*
+              build/elf*
