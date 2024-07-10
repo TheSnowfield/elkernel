@@ -8,6 +8,11 @@ project(elkernel)
 add_custom_target(${PROJECT_NAME} ALL
   DEPENDS ekrnln eapp
 
+  COMMENT "Generating bootimg ld parameters"
+  COMMAND python3
+    ${ELKERNEL_TOOL_DIR}/make-bootimg-ld.py
+    ${ELKERNEL_BUILD_DIR}
+
   COMMENT "Building ${PROJECT_NAME}.elf"
   COMMAND ld -m elf_i386
     -T ${ELKERNEL_SOURCE_DIR}/link.ld

@@ -16,7 +16,7 @@ SECTIONS {
         uint32_t image_size;
         uint32_t entry_offset;
         uint64_t date;  // reserved
-        char[32] version;
+        char[128] version;
         ALIGN(512);
       } bootim_t;
 
@@ -28,7 +28,7 @@ SECTIONS {
     LONG(_im_code_end - _im_code_start);
     LONG(_krnl_MMain);
     INCLUDE "ld_date.ld";
-    INCLUDE "ld_version.ld"; . = ALIGN(32);
+    INCLUDE "ld_version.ld"; /* length limited in tool/make-bootimg-ld.py */
 
     /* align to 512B which is sector 1 */
     /* the first sector contains the bootloader */
