@@ -1,6 +1,8 @@
 OUTPUT_FORMAT("pe-i386")
 ENTRY(_start);
 
+. = 0x7c00;
+
 SECTIONS {
 
   .text : ALIGN(4) {
@@ -19,12 +21,9 @@ SECTIONS {
     *(.bss)
   }
 
-  .gdt_desc : ALIGN(4) {
-    *(.gdt_desc)
-  }
-
+  _code_end = .;
   .bootable_sig : {
-    . = ALIGN(510);
+    . = 0x7e00 - _code_end - 4;
     SHORT(0xaa55);
   }
 }

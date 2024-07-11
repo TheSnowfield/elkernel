@@ -28,9 +28,6 @@ add_custom_target(${PROJECT_NAME} ALL
   COMMENT "Stripping bootloader binary"
   COMMAND objcopy -O binary
     --set-section-flags .bootable_sig=alloc,load,readonly
-    --set-section-flags .gdt_desc=alloc,load,readonly
-    --set-start=0x7c00
-    # --change-start=0x7c00
     --verbose
     ${PROJECT_NAME}.elf ${PROJECT_NAME}
 )

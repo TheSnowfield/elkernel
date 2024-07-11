@@ -8,6 +8,8 @@
 
   _start:
 
+  push dx # 驅動器id
+
   # 清除寄存器
   # 不清除會導致在各個仿真器/虛擬機上行爲不同
   mov ax, 0x0000
@@ -22,36 +24,35 @@
   # 重置顯示器
   call _func_reset_screen
 
-  # 加載程序主體部分
-  lea ax, _msg_ldisk
+  # Booting
+  lea ax, _msg_booting
   call _func_print_str
-    call _func_floppy_read
-    cmp ax, 0x0000
-    jz _flag_load_succ
-    call _func_hdd_read
-    cmp ax, 0x0000
-    jnz _flag_e
+
+  # 加載程序主體部分
+  pop dx
+  xchg bx, bx
+  call _func_load_bootim
+  # call _func_floppy_read
+  #   cmp ax, 0x0000
+  #   jz _flag_load_succ
+  # call _func_hdd_read
+  #   cmp ax, 0x0000
+  #   jnz _flag_e
+
   _flag_load_succ:
 
   # 加載全局描述符表
-  lea ax, _msg_lgdt
-  call _func_print_str
-    call _func_load_gdt
+  call _func_load_gdt
     cmp ax, 0x0000
     jnz _flag_e
 
   # 可以進入保護模式啦 萬歲
-  lea ax, _msg_entrypm
-  call _func_print_str
-    call _func_entry_pmode
-    call _func_main
-    # 這裏代碼就不會執行啦
+  call _func_entry_pmode
+  call _func_main
+  hlt
 
   _flag_e:
-  lea ax, _msg_failed
-  call _func_print_str
-
-  hlt
+  jmp $
 
   # 打印字符
   #   al = 字符
@@ -83,6 +84,31 @@
     mov ax, 0x0003  # 設置顯示器 (80x25 16色文本)
     int 0x10
   ret
+
+  # 解析 bootim 並加載
+  _func_load_bootim:
+
+
+
+  ret
+
+  # 寄存器 SI 加載磁盤偏移(段，每段512B)
+  # 寄存器 DI 加載到內存偏移
+  # 寄存器 AX[AL, AH] [AL驅動器號]
+  _func_read_drive:
+
+    # 0段
+    mov xor dx, dx
+    mov es, dx
+    mov ds, dx
+
+    mov ah, 0x02      # 中斷函數
+    mov al, 0x3F      # 中斷參數 讀取扇區數(一整個磁條)
+    mov ch, 0x00      # 中斷參數 柱面號
+    mov cl, 0x02      # 中斷參數 開始扇區號(扇區號從1開始，1扇區已被BIOS讀取到內存)
+    mov dh, 0x00      # 中斷參數 磁頭號
+    mov bx, 0x0000    # 中斷參數 緩衝區偏移
+    mov dl, 0x00      # 中斷參數 驅動器號
 
   # 將程序加載到内存
   # 返回 ax 加載是否成功
@@ -157,10 +183,7 @@
 
 # 保存的字串
 .data
-  _msg_failed:  .asciz " FAILED!"
-  _msg_ldisk:   .asciz "Loading elKernel..."
-  _msg_lgdt:    .asciz "Loading GDT...     "
-  _msg_entrypm: .asciz "Entering protected mode..."
+  _msg_booting: .asciz "Booting..."
 
 # 全局描述符表
 .align 4
