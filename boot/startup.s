@@ -8,7 +8,7 @@
 
   _start:
 
-  push dx # 驅動器id
+  mov ds:_disk_id, dl
 
   # 清除寄存器
   # 不清除會導致在各個仿真器/虛擬機上行爲不同
@@ -24,60 +24,62 @@
   # 重置顯示器
   call _func_reset_screen
 
-  # Booting
-  lea ax, _msg_booting
-  call _func_print_str
+  # 初始化磁盤參數
+  # call _func_init_drive_param
 
   # 加載程序主體部分
-  pop dx
-  xchg bx, bx
   call _func_load_bootim
-  # call _func_floppy_read
-  #   cmp ax, 0x0000
-  #   jz _flag_load_succ
-  # call _func_hdd_read
-  #   cmp ax, 0x0000
-  #   jnz _flag_e
-
-  _flag_load_succ:
 
   # 加載全局描述符表
   call _func_load_gdt
-    cmp ax, 0x0000
-    jnz _flag_e
+    cmp ax, 0
+    jnz _flag_panic
 
-  # 可以進入保護模式啦 萬歲
-  call _func_entry_pmode
-  call _func_main
+  # 原神，啓動！
+  call _func_print_newline
+  lea ax, _msg_booting
+  call _func_print
+  call _func_print_newline
+
+  # 進入保護模式
+  xor eax, eax
+  cli               # 關閉中斷
+  in al, 0x92       # 使用快速 A20 門
+  or al, 2          # 啓用 A20 綫
+  out 0x92, al
+  mov eax, cr0
+  or al, 1          # 啓用保護位
+  mov cr0, eax
+
+  # 起！
+  xchg bx,bx
+
+  # jmp 0x08:_krnl_MMain  # 超級遠跳轉
+  #                       # 一去不復返 2333
+
   hlt
-
-  _flag_e:
-  jmp $
-
-  # 打印字符
-  #   al = 字符
-  _func_print_ch:
-    mov ah, 0x0e
-    int 0x10
-  ret
 
   # 打印字串
   # 中斷函數打印法
   #   ax = 字串指針
-  _func_print_str:
+  _func_print:
     mov si, ax      # 參數 字串所在指針
     
-    _flag_d:
+    _flag_print_continue:
       lodsb           # 加載指針
       cmp al, 0x00    # 是否加載成功
-      jz _flag_c
+      jz _flag_print_break
       
       mov ah, 0x0e    # 中斷函數
       int 0x10
-      jmp _flag_d
+      jmp _flag_print_continue
 
-    _flag_c:
+    _flag_print_break:
   ret
+
+  _func_print_newline:
+    lea ax, _msg_newline
+    jmp _func_print
 
   # 重置默認顯示器
   _func_reset_screen:
@@ -86,73 +88,140 @@
   ret
 
   # 解析 bootim 並加載
+  # 返回 ax 爲 main 指針
   _func_load_bootim:
 
+    # 先讀取 bootim 所在的扇區，並解析
+    xor ax, ax
+    mov es, ax
+    mov bx, 0x7e00 # 0x0000(es):0x7e00(bx) = 0x7e00
+    mov cl, 0x02   # bootim 在第 2 扇區
+    mov ch, 0x01   # 讀取 1 個扇區到內存
+    mov al, dl     # 啓動的磁盤號, BIOS設置
+    call _func_read_drive
 
+    # 判斷幻數 ELKERNEL
+    mov ax, es:0x7e00
+    mov bx, es:0x7e02
+    mov cx, es:0x7e04
+    mov dx, es:0x7e06
+      cmp ax, 0x4c45 # EL
+        jnz _flag_no_bootim
+      cmp bx, 0x454b # KE
+        jnz _flag_no_bootim
+      cmp cx, 0x4e52 # RN
+        jnz _flag_no_bootim
+      cmp dx, ax # EL
+        jnz _flag_no_bootim
+
+    # 打印版本字符串
+    mov ax, 0x7e20
+    call _func_print
+    call _func_print_newline
+
+    # 0x7e10 爲 bootim 中定義內核的頁數
+    mov ax, [es:0x7e10]
+    mov ds:_bootim_pages, ax
+    xchg bx, bx
+
+    # 好的 那把內核全部請進來吧 (?
+    # 將內核加載到 0x8000 處
+    mov bx, 0x800
+    mov es, bx
+    xor bx, bx      # 0x0800(es):0x0000(bx) = 0x8000
+    xor dh, dh      # 磁頭 0
+    mov cl, 0x03  # kernel 在第 3 扇區
+
+    _read_continue:
+      mov ax, ds:_bootim_pages
+      cmp ax, 31    # if (ds:_bootim_pages < 31)
+        jl _read_remain
+        sub ax, 27
+        mov ds:_bootim_pages, ax
+        mov al, 27  # 只讀 31 扇區
+        jmp _read_begin
+      _read_remain:
+        mov ds:_bootim_pages, bx
+        # 此時 al = remain
+
+      _read_begin:
+      mov dl, ds:_disk_id # 啓動的磁盤號
+      mov ah, 0x02        # 中斷號
+      int 0x13
+      
+      xor ah, ah          # es 段 偏移 +1
+      mov bx, es
+      add bx, ax
+      mov es, bx
+
+      # 讀完沒有
+      mov ax, ds:_bootim_pages
+      cmp ax, 0
+        je _read_end
+
+      # 你媽的 繼續
+      add ch, 1           # 柱面 +1
+      jmp _read_continue
+
+    # 你媽的 終於讀完了
+    _read_end:
+      xchg bx, bx
+
+    # bootim 入口函數地址
+    mov ax, ds:0x8000
+    ret
+
+    _flag_no_bootim:
+      lea ax, _msg_missing_bootim
+      call _func_print
+      jmp _flag_panic
 
   ret
 
-  # 寄存器 SI 加載磁盤偏移(段，每段512B)
-  # 寄存器 DI 加載到內存偏移
-  # 寄存器 AX[AL, AH] [AL驅動器號]
+  # 寄存器 AX [AL 驅動器號, AH]
+  # 寄存器 BX 目的內存段偏移
+  # 寄存器 ES 目的內存段號
+  # 寄存器 CX [CL 磁盤起始扇區號, CH 讀取扇區數量]
   _func_read_drive:
-
-    # 0段
-    mov xor dx, dx
-    mov es, dx
-    mov ds, dx
-
-    mov ah, 0x02      # 中斷函數
-    mov al, 0x3F      # 中斷參數 讀取扇區數(一整個磁條)
-    mov ch, 0x00      # 中斷參數 柱面號
-    mov cl, 0x02      # 中斷參數 開始扇區號(扇區號從1開始，1扇區已被BIOS讀取到內存)
-    mov dh, 0x00      # 中斷參數 磁頭號
-    mov bx, 0x0000    # 中斷參數 緩衝區偏移
-    mov dl, 0x00      # 中斷參數 驅動器號
-
-  # 將程序加載到内存
-  # 返回 ax 加載是否成功
-  _func_floppy_read:
-    mov ax, KRNLNBOOT # 中斷參數 緩衝區
-    mov es, ax
-    mov ah, 0x02      # 中斷函數
-    mov bx, 0x0000    # 中斷參數 緩衝區偏移
-    mov al, 0x40      # 中斷參數 讀取扇區數
-    mov ch, 0x00      # 中斷參數 柱面號
-    mov cl, 0x02      # 中斷參數 扇區號
-    mov dh, 0x00      # 中斷參數 磁頭號
-    mov dl, 0x00      # 中斷參數 驅動器號
+    mov dl, al      # 中斷參數 驅動器號
+    mov al, ch      # 中斷參數 讀取扇區數
+    mov ah, 0x02    # 中斷函數
+    mov ch, 0x00    # 中斷參數 柱面號
+    mov dh, 0x00    # 中斷參數 磁頭號
 
     int 0x13          # 調用中斷
     cmp ah, 0x00      # 是否成功
-    jnz _flag_f
-    xor ax, ax        # 清空寄存器 返回成功
-    
-    _flag_f:
-  ret
+      jnz _flag_panic
 
-  _func_hdd_read:
-    mov ax, KRNLNBOOT # 中斷參數 緩衝區
+    xor ax, ax
+    ret
+
+  _func_init_drive_param:
+    xchg bx, bx
+    xchg bx, bx
+    xchg bx, bx
+    xchg bx, bx
+
+    xor ax, ax
     mov es, ax
-    mov ah, 0x02      # 中斷函數
-    mov bx, 0x0000    # 中斷參數 緩衝區偏移
-    mov al, 0x40      # 中斷參數 讀取扇區數
-    mov ch, 0x00      # 中斷參數 柱面號
-    mov cl, 0x02      # 中斷參數 扇區號
-    mov dh, 0x00      # 中斷參數 磁頭號
-    mov dl, 0x80      # 中斷參數 驅動器號
+    mov di, ax
 
-    int 0x13          # 調用中斷
-    cmp ah, 0x00      # 是否成功
-    jnz _flag_g
-    xor ax, ax        # 清空寄存器 返回成功
-    
-    _flag_g:
-  ret
+    mov ah, 0x08
+    mov dl, ds:_disk_id
+    int 0x13
+
+    mov ds:_disk_heads, dh
+
+    mov dl, cl
+    and dl, 0x3f
+    mov ds:_disk_sectors, dl
+
+    and cx, 0xffc0
+    mov ds:_disk_cylinders, cx
+    ret
 
   # 加載全局描述符表
   _func_load_gdt:
-    xchg bx,bx
     lgdt ds:[_GDT_HEADER] # 加載GDT
     mov ax, 0x0000
   ret
@@ -173,17 +242,19 @@
 
   ret
 
-  # 調用上層代碼
-  _func_main:
-    jmp $
-    # jmp 0x08:_krnl_MMain  # 超級遠跳轉
-    #                       # 一去不復返 2333
-  ret
+  _flag_panic:
+  jmp $
 
-
-# 保存的字串
 .data
-  _msg_booting: .asciz "Booting..."
+  _msg_newline: .asciz "\r\n"
+  _msg_missing_bootim: .asciz "missing bootim, panic."
+  _msg_booting: .asciz "booting..."
+
+  _disk_id: .byte 0
+  _disk_heads: .byte 0
+  _disk_sectors: .byte 0
+  _disk_cylinders: .2byte 0
+  _bootim_pages: .2byte 0
 
 # 全局描述符表
 .align 4
