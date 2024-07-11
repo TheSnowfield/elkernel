@@ -10,7 +10,7 @@ class bootimg:
     STRUCT_MAGIC = 0
     STRUCT_CRC32 = 8
     STRUCT_FLAGS = 12
-    STRUCT_IMG_SIZE = 16
+    STRUCT_IMG_PAGES = 16
     STRUCT_ENTRY_OFFSET = 20
     STRUCT_TIMESTAMP = 24
     STRUCT_VERSION = 32
@@ -58,7 +58,8 @@ class bootimg:
         self.fp.write(b"ELKERNEL")            # 0   magic
         self.fp.write(bytearray(4))           # 8   crc32
         self.fp.write(bytearray(4))           # 12  flags
-        self.fp.write(bytearray(4))           # 16  image_size
+        self.fp.write(bytearray(2))           # 16  image_pages
+        self.fp.write(bytearray(2))           # 18  reserved
         self.fp.write(bytearray(4))           # 20  entry_offset
         self.fp.write(self._get_time())       # 24  timestamp
         self.fp.write(self._get_version())    # 32  version
@@ -84,11 +85,11 @@ class bootimg:
         
         # write file align 512
         self.fp.seek(self.STRUCT_KERNEL)
-        size = self._padding_write(file)
+        size = int(self._padding_write(file) / 512)
 
-        # write image size
-        self.fp.seek(self.STRUCT_IMG_SIZE)
-        self.fp.write(size.to_bytes(4, byteorder='little'))
+        # write image pages
+        self.fp.seek(self.STRUCT_IMG_PAGES)
+        self.fp.write(size.to_bytes(2, byteorder='little'))
 
 
     def close(self):
